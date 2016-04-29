@@ -7,6 +7,15 @@
   "source": "https://github.com/Graylog2/puppet-graylog",
   "project_page": "https://github.com/Graylog2/puppet-graylog",
   "issues_url": "https://github.com/Graylog2/puppet-graylog/issues",
+  "tags": [
+    "graylog2",
+    "graylog",
+    "logging",
+    "logs",
+    "events",
+    "elasticsearch",
+    "mongodb"
+  ],
   "dependencies": [
     {
       "name": "puppetlabs-stdlib",
