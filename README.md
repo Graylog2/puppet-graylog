@@ -1,5 +1,7 @@
 # Graylog Puppet Module
 
+[![Build Status](https://travis-ci.org/Graylog2/puppet-graylog.png)](https://travis-ci.org/Graylog2/puppet-graylog)
+
 #### Table of Contents
 
 1. [Description](#description)
