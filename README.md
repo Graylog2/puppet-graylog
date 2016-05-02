@@ -171,7 +171,7 @@ This setting is used to specify the Graylog server configuration. The server
 configuration consists of key value pairs. Every available config option can
 be used here.
 
-See the [example graylog.con](https://github.com/Graylog2/graylog2-server/blob/master/misc/graylog.conf)
+See the [example graylog.conf](https://github.com/Graylog2/graylog2-server/blob/master/misc/graylog.conf)
 to see a list of available options.
 
 Required settings:
