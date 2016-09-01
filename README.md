@@ -99,10 +99,10 @@ elasticsearch::instance { 'graylog':
 }
 
 class { 'graylog::repository':
-  version => '2.0'
+  version => '2.1'
 }->
 class { 'graylog::server':
-  package_version => '2.0.0-5',
+  package_version => '2.1.0-9',
   config          => {
     'password_secret' => '...',    # Fill in your password secret
     'root_password_sha2' => '...', # Fill in your root password hash
@@ -136,7 +136,7 @@ version.
 
 It defaults to `$graylog::params::major_version`.
 
-Example: `version => '2.0'`
+Example: `version => '2.1'`
 
 ##### `url`
 
@@ -163,7 +163,7 @@ This setting is used to choose the Graylog package version. It defaults to
 install time. You can also use `latest` so it will always update to the latest
 stable version if a new one is available.
 
-Example: `package_version => '2.0.0-5'`
+Example: `package_version => '2.1.0-9'`
 
 ##### `config`
 
@@ -262,7 +262,7 @@ Example:
 
 ```
 graylog => {
-  major_version => '2.0',
+  major_version => '2.1',
   config        => {
     # ... see graylog::server description for details
   },
