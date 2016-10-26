@@ -5,8 +5,8 @@ class graylog::params {
   $repository_release = 'stable'
 
   $repository_url = $::osfamily ? {
-    'debian' => 'https://downloads.graylog.org/repo/debian/',
-    'redhat' => "https://downloads.graylog.org/repo/el/${repository_release}/${major_version}/\$basearch/",
+    'debian' => 'https://packages.graylog.org/debian/',
+    'redhat' => "https://packages.graylog.org/el/${repository_release}/${major_version}/\$basearch/",
     default  => fail("${::osfamily} is not supported!"),
   }
 
