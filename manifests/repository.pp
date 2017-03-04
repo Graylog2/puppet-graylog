@@ -5,13 +5,13 @@ class graylog::repository(
 ) inherits graylog::params {
   anchor { 'graylog::repository::begin': }
   anchor { 'graylog::repository::end': }
-
+  
   if $url == undef {
-     $repo_url = $::osfamily ? {
-       'debian' => 'https://downloads.graylog.org/repo/debian/',
-       'redhat' => "https://downloads.graylog.org/repo/el/${repository_release}/${version}/\$basearch/",
-       default  => fail("${::osfamily} is not supported!"),
-     }
+    $repo_url = $::osfamily ? {
+      'debian' => 'https://downloads.graylog.org/repo/debian/',
+      'redhat' => "https://downloads.graylog.org/repo/el/${repository_release}/${version}/\$basearch/",
+      default  => fail("${::osfamily} is not supported!"),
+      }
   } else {
     $repo_url = $url
   }
