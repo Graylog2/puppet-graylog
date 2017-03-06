@@ -102,7 +102,7 @@ class { 'graylog::repository':
   version => '2.2'
 }->
 class { 'graylog::server':
-  package_version => '2.2.0-10.rc.1',
+  package_version => '2.2.2-1',
   config          => {
     'password_secret' => '...',    # Fill in your password secret
     'root_password_sha2' => '...', # Fill in your root password hash
@@ -110,7 +110,8 @@ class { 'graylog::server':
 }
 ```
 
-### a more complex example
+### A more complex example
+
 ```puppet
 class { '::graylog::repository':
   version => '2.2'
@@ -209,7 +210,7 @@ This setting is used to choose the Graylog package version. It defaults to
 install time. You can also use `latest` so it will always update to the latest
 stable version if a new one is available.
 
-Example: `package_version => '2.2.0-10.rc.1'`
+Example: `package_version => '2.2.2-1'`
 
 ##### `config`
 
