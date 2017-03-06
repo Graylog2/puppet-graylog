@@ -110,6 +110,52 @@ class { 'graylog::server':
 }
 ```
 
+### a more complex example
+```puppet
+class { '::graylog::repository':
+  version => '2.2'
+}->
+class { '::graylog::server':
+  config  => {
+    is_master                                          => true,
+    node_id_file                                       => '/etc/graylog/server/node-id',
+    password_secret                                    => 'password_secret',
+    root_username                                      => 'admin',
+    root_password_sha2                                 => 'root_password_sha2',
+    root_timezone                                      => 'Europe/Berlin',
+    allow_leading_wildcard_searches                    => true,
+    allow_highlighting                                 => true,
+    rest_listen_uri                                    => 'https://graylog01.domain.local:9000/api/',
+    rest_transport_uri                                 => 'https://graylog01.domain.local:9000/api/',
+    rest_enable_tls                                    => true,
+    rest_tls_cert_file                                 => '/etc/ssl/graylog/graylog_cert_chain.crt',
+    rest_tls_key_file                                  => '/etc/ssl/graylog/graylog_key_pkcs8.pem',
+    rest_tls_key_password                              => 'sslkey-password',
+    web_enable                                         => true,
+    web_listen_uri                                     => 'https://graylog01.domain.local:9000/',
+    web_enable_tls                                     => true,
+    web_tls_cert_file                                  => '/etc/ssl/graylog/graylog_cert_chain.crt',
+    web_tls_key_file                                   => '/etc/ssl/graylog/graylog_key_pkcs8.pem',
+    web_tls_key_password                               => 'sslkey-password',
+    rotation_strategy                                  => 'time',
+    retention_strategy                                 => 'delete',
+    elasticsearch_max_time_per_index                   => '1d',
+    elasticsearch_max_number_of_indices                => '30',
+    elasticsearch_shards                               => '4',
+    elasticsearch_replicas                             => '1',
+    elasticsearch_index_prefix                         => 'graylog',
+    elasticsearch_cluster_name                         => 'graylogcluster',
+    elasticsearch_network_host                         => $::fqdn,
+    elasticsearch_discovery_zen_ping_multicast_enabled => false,
+    elasticsearch_discovery_zen_ping_unicast_hosts     => 'elasticsearch01.domain.local:9300, elasticsearch02.domain.local:9300, elasticsearch03.domain.local:9300',
+    mongodb_uri                                        => 'mongodb://mongouser:mongopass@mongodb01.domain.local:27017,mongodb02.domain.local:27017,mongodb03.domain.local:27017/graylog',
+  },
+  require => Class[
+    '::java',
+  ],
+}
+```
+
 ## Reference
 
 ### Classes
