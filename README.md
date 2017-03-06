@@ -342,3 +342,13 @@ This is a quick way to see how the module behaves on a real machine.
 
 Please see the [CONTRIBUTING.md](CONTRIBUTING.md) and [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)
 files for further details.
+
+### Release New Version
+
+1. Update and commit CHANGELOG
+1. Bump version via `bundle exec rake module:bump:minor` (or major/patch)
+1. Commit `module.json`
+1. Test build with `bundle exec rake build`
+1. Tag release with `bundle exec rake module:tag`
+1. Push release to PuppetForge with `bundle exec rake module:push`
+1. Push commits to GitHub
