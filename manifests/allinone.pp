@@ -29,8 +29,10 @@ class graylog::allinone(
   }->
   elasticsearch::instance { 'graylog':
     config => {
-      'cluster.name' => 'graylog',
-      'network.host' => '127.0.0.1',
+      'cluster.name'           => 'graylog',
+      'network.host'           => '127.0.0.1',
+      'elasticsearch_shards'   => 1,
+      'elasticsearch_replicas' => 0,
     },
   }
 
