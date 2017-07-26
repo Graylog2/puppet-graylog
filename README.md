@@ -87,7 +87,7 @@ class { 'mongodb::server':
 }
 
 class { 'elasticsearch':
-  version      => '5.4.2',
+  version      => '5.5.1',
   repo_version => '5.x',
   manage_repo  => true,
 }->
@@ -102,7 +102,7 @@ class { 'graylog::repository':
   version => '2.3'
 }->
 class { 'graylog::server':
-  package_version => '2.3.0-6',
+  package_version => '2.3.0-7',
   config          => {
     'password_secret' => '...',    # Fill in your password secret
     'root_password_sha2' => '...', # Fill in your root password hash
@@ -207,7 +207,7 @@ This setting is used to choose the Graylog package version. It defaults to
 install time. You can also use `latest` so it will always update to the latest
 stable version if a new one is available.
 
-Example: `package_version => '2.3.0-5'`
+Example: `package_version => '2.3.0-7'`
 
 ##### `config`
 
@@ -292,7 +292,7 @@ Example:
 
 ```
 elasticsearch => {
-  version      => '5.4.2',
+  version      => '5.5.1',
   repo_version => '5.x',
 }
 ```
