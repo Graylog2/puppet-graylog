@@ -189,6 +189,10 @@ This setting is used to set the package repository url.
 **Note:** The module automatically detects the url for your platform so this
 setting should not be changed.
 
+##### `proxy`
+
+This setting is used to facilitate package installation with yum via proxy. 
+
 ##### `release`
 
 This setting is used to set the package repository release.
