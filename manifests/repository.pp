@@ -1,6 +1,7 @@
 class graylog::repository(
   $version = $graylog::params::major_version,
   $url     = undef,
+  $proxy = undef,
   $release = $graylog::params::repository_release,
 ) inherits graylog::params {
   anchor { 'graylog::repository::begin': }
@@ -27,6 +28,7 @@ class graylog::repository(
     'redhat': {
       class { 'graylog::repository::yum':
         url => $graylog_repo_url,
+        proxy => $proxy,
       }
     }
     default: {
