@@ -27,7 +27,7 @@ class graylog::repository(
     }
     'redhat': {
       class { 'graylog::repository::yum':
-        url => $graylog_repo_url,
+        url   => $graylog_repo_url,
         proxy => $proxy,
       }
     }
