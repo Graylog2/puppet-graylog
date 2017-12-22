@@ -1,3 +1,7 @@
+## 0.5.0 (2017-12-22)
+
+- Update for Graylog 2.4.0
+
 ## 0.4.0 (2017-07-26)
 
 - Update for Graylog 2.3.0

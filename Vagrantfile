@@ -9,6 +9,13 @@ Vagrant.configure('2') do |config|
     machine.vm.network "forwarded_port", guest: 12900, host: 12900
   end
 
+  config.vm.define 'ubuntu1604' do |machine|
+    machine.vm.box = 'puppetlabs/ubuntu-16.04-64-puppet'
+    machine.vm.network 'private_network', ip: '10.10.0.11'
+    machine.vm.network "forwarded_port", guest: 9000, host: 9000
+    machine.vm.network "forwarded_port", guest: 12900, host: 12900
+  end
+
   config.vm.define 'centos7' do |machine|
     machine.vm.box = 'puppetlabs/centos-7.2-64-puppet'
     machine.vm.network 'private_network', ip: '10.10.0.11'
@@ -24,6 +31,8 @@ Vagrant.configure('2') do |config|
   # Using a custom shell provisioner to run Puppet because the vagrant puppet
   # provisioner does not work for me...
   script = <<-SCRIPT
+  apt-get update
+
   ln -sf /vagrant /etc/puppetlabs/code/environments/production/modules/graylog
 
   # Required to run graylog::allinone

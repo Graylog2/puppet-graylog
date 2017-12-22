@@ -14,12 +14,12 @@ class graylog::allinone(
   if has_key($elasticsearch, 'version') {
     $es_version = $elasticsearch['version']
   } else {
-    $es_version = '2.3.2'
+    $es_version = '5.6.5'
   }
   if has_key($elasticsearch, 'repo_version') {
     $es_repo_version = $elasticsearch['repo_version']
   } else {
-    $es_repo_version = '2.x'
+    $es_repo_version = '5.x'
   }
 
   class { 'elasticsearch':
