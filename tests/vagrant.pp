@@ -6,7 +6,7 @@ include java
 
 class { 'graylog::allinone':
   elasticsearch => {
-    version      => '5.5.1',
+    version      => '5.6.6',
     repo_version => '5.x',
   },
   graylog       => {
