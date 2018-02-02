@@ -38,7 +38,7 @@ You could use the following modules to install dependencies:
 
 * [puppetlabs/java](https://forge.puppet.com/puppetlabs/java)
 * [puppetlabs/mongodb](https://forge.puppet.com/puppetlabs/mongodb)
-* [elasticsearch/elasticsearch](https://forge.puppet.com/elasticsearch/elasticsearch)
+* [elastic/elasticsearch](https://forge.puppet.com/elastic/elasticsearch)
 
 ### Beginning with graylog
 
@@ -277,7 +277,7 @@ Please make sure you have these installed before using the `graylog::allinone` c
 Requirements:
 
 * [puppetlabs/mongodb](https://forge.puppet.com/puppetlabs/mongodb)
-* [elasticsearch/elasticsearch](https://forge.puppet.com/elasticsearch/elasticsearch)
+* [elastic/elasticsearch](https://forge.puppet.com/elastic/elasticsearch)
 
 ##### `elasticsearch`
 

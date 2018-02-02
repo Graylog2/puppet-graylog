@@ -39,7 +39,7 @@ Vagrant.configure('2') do |config|
   test -d /etc/puppetlabs/code/environments/production/modules/apt || puppet module install puppetlabs-apt
   test -d /etc/puppetlabs/code/environments/production/modules/java || puppet module install puppetlabs-java
   test -d /etc/puppetlabs/code/environments/production/modules/mongodb || puppet module install puppetlabs-mongodb
-  test -d /etc/puppetlabs/code/environments/production/modules/elasticsearch || puppet module install elasticsearch-elasticsearch
+  test -d /etc/puppetlabs/code/environments/production/modules/elasticsearch || puppet module install elastic-elasticsearch
 
   cp /home/vagrant/site.pp /etc/puppetlabs/code/environments/production/manifests/
 
