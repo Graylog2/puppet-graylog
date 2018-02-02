@@ -1,3 +1,10 @@
+## 0.6.0 (2018-02-02)
+
+- Replace deprecated size() with length() (#22, #21)
+- Replace deprecated elasticsearch module references (#17)
+- Replace deprecated mongodb module references
+- Allow puppetlabs/apt module version >3.0.0 (#16)
+
 ## 0.5.0 (2017-12-22)
 
 - Update for Graylog 2.4.0
