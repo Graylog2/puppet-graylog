@@ -191,7 +191,7 @@ setting should not be changed.
 
 ##### `proxy`
 
-This setting is used to facilitate package installation with yum via proxy. 
+This setting is used to facilitate package installation with proxy. 
 
 ##### `release`
 
