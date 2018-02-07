@@ -49,17 +49,17 @@ class graylog::repository::apt(
     # If a line already exists for that source, and doesn't match the provided proxy param, that line will be replaced.
     # If a line does not exist for that source, the provided info will be appended.
     $package_sources.each |String $source| {
-      file_line { "Acquire::http::proxy::$source":
+      file_line { "Acquire::http::proxy::${source}":
         path    => '/etc/apt/apt.conf.d/01proxy',
-        match   => "Acquire::http::proxy::$source",
-        line    => "Acquire::http::proxy::$source \"$proxy\";",
+        match   => "Acquire::http::proxy::${source}",
+        line    => "Acquire::http::proxy::${source} \"${proxy}\";",
         require => File['/etc/apt/apt.conf.d/01proxy'],
         before  => Apt::Source['graylog']
       }
-      file_line { "Acquire::https::proxy::$source":
+      file_line { "Acquire::https::proxy::${source}":
         path    => '/etc/apt/apt.conf.d/01proxy',
-        match   => "Acquire::https::proxy::$source",
-        line    => "Acquire::https::proxy::$source \"$proxy\";",
+        match   => "Acquire::https::proxy::${source}",
+        line    => "Acquire::https::proxy::${source} \"${proxy}\";",
         require => File['/etc/apt/apt.conf.d/01proxy'],
         before  => Apt::Source['graylog']
       }
@@ -67,14 +67,14 @@ class graylog::repository::apt(
   }
   else {
     # If proxy parameter has not been provided, remove any existing graylog package sources from the 01proxy file (if
-    # it exists) 
+    # it exists)
     file_line { 'Remove graylog config from apt proxy file':
-      ensure   => absent,
-      path     => '/etc/apt/apt.conf.d/01proxy',
-      match    => 'graylog',
+      ensure            => absent,
+      path              => '/etc/apt/apt.conf.d/01proxy',
+      match             => 'graylog',
       match_for_absence => true,
-      multiple => true,
-      before  => Apt::Source['graylog']
+      multiple          => true,
+      before            => Apt::Source['graylog']
     }
   }
 }
