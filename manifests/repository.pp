@@ -23,6 +23,7 @@ class graylog::repository(
         url     => $graylog_repo_url,
         release => $release,
         version => $version,
+        proxy   => $proxy,
       }
     }
     'redhat': {
