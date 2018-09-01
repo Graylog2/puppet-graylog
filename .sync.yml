@@ -1,0 +1,13 @@
+---
+Gemfile:
+  optional:
+    ':development':
+      - gem: 'puppet-resource_api'
+spec/spec_helper.rb:
+  mock_with: ':rspec'
+appveyor.yml:
+  delete: true
+.gitlab-ci.yml:
+  delete: true
+.travis.yml:
+  unamanged: true

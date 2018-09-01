@@ -7,15 +7,6 @@
   "source": "https://github.com/Graylog2/puppet-graylog",
   "project_page": "https://github.com/Graylog2/puppet-graylog",
   "issues_url": "https://github.com/Graylog2/puppet-graylog/issues",
-  "tags": [
-    "graylog2",
-    "graylog",
-    "logging",
-    "logs",
-    "events",
-    "elasticsearch",
-    "mongodb"
-  ],
   "dependencies": [
     {
       "name": "puppetlabs/stdlib",
@@ -49,5 +40,22 @@
       ]
     }
   ],
-  "data_provider": null
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": ">= 4.7.0 < 6.0.0"
+    }
+  ],
+  "tags": [
+    "graylog2",
+    "graylog",
+    "logging",
+    "logs",
+    "events",
+    "elasticsearch",
+    "mongodb"
+  ],
+  "pdk-version": "1.7.0",
+  "template-url": "https://github.com/puppetlabs/pdk-templates",
+  "template-ref": "tags/1.7.0-0-g57412ed"
 }

@@ -1,37 +1,28 @@
 class graylog::server(
-  $package_version = $graylog::params::package_version,
-  $config = undef,
-  $user = $graylog::params::server_user,
-  $group = $graylog::params::server_group,
-  $ensure = running,
-  $enable = true,
-) inherits graylog::params {
-  if $config == undef {
-    fail('Missing "config" setting!')
-  }
-  if ! is_hash($config) {
-    fail('$config needs to be a hash data type!')
+  Hash    $config,
+  Boolean $enable = true,
+  String  $ensure = running,
+  String  $group,
+  String  $package_version,
+  String  $password_secret,
+  String  $root_password,
+  String  $user,
+) {
+  $root_password_sha2 = graylog::sha256($root_password)
+
+  $default_config = {
+    plugin_dir          => '/usr/share/graylog-server/plugin',
+    message_journal_dir => '/var/lib/graylog-server/journal',
+    content_packs_dir   => '/usr/share/graylog-server/contentpacks',
+    is_master           => true,
+    root_password_sha2  => $root_password_sha2,
+    password_secret     => $password_secret,
   }
 
-  # Check mandatory settings
-  if ! has_key($config, 'password_secret') {
-    fail('Missing "password_secret" config setting!')
-  }
-  if has_key($config, 'root_password_sha2') {
-    if length($config['root_password_sha2']) < 64 {
-      fail('The root_password_sha2 parameter does not look like a SHA256 checksum!')
-    }
-  } else {
-    fail('Missing "root_password_sha2" config setting!')
-  }
-
-  $data = merge($::graylog::params::default_config, $config)
-
-  anchor { 'graylog::server::start': }
-  anchor { 'graylog::server::end': }
+  $data = merge($default_config, $config)
 
   package { 'graylog-server':
-    ensure => $package_version
+    ensure => $package_version,
   }
 
   file { '/etc/graylog/server/server.conf':
@@ -41,6 +32,7 @@ class graylog::server(
     mode      => '0640',
     content   => template("${module_name}/server/graylog.conf.erb"),
     show_diff => true,
+    require   => Package['graylog-server'],
   }
 
   service { 'graylog-server':
@@ -48,11 +40,8 @@ class graylog::server(
     enable     => $enable,
     hasstatus  => true,
     hasrestart => true,
+    subscribe  => File['/etc/graylog/server/server.conf'],
   }
-
-  Anchor['graylog::server::start']
-  ->Package['graylog-server']
-  ->File['/etc/graylog/server/server.conf']
-  ~>Service['graylog-server']
-  ->Anchor['graylog::server::end']
 }
+
+

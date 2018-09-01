@@ -1,11 +1,13 @@
 class graylog::repository::apt(
-  $url,
-  $release,
-  $version,
+  String $url,
+  String $release,
+  String $version,
 ) {
   $apt_transport_package = 'apt-transport-https'
   $gpg_file = '/etc/apt/trusted.gpg.d/graylog-keyring.gpg'
 
+
+  # Not a fan of this pattern
   if !defined(Package[$apt_transport_package]) {
     ensure_packages([$apt_transport_package])
   }

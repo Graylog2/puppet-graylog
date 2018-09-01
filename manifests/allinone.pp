@@ -1,7 +1,7 @@
 class graylog::allinone(
-  $elasticsearch,
-  $graylog,
-) inherits graylog::params {
+  Hash $elasticsearch,
+  Hash $graylog,
+) {
 
   class {'::mongodb::globals':
     manage_package_repo => true,
@@ -35,14 +35,8 @@ class graylog::allinone(
   }
 
 
-  if has_key($graylog, 'major_version') {
-    $graylog_major_version = $graylog['major_version']
-  } else {
-    $graylog_major_version = $graylog::params::major_version
-  }
-
   class { 'graylog::repository':
-    version => $graylog_major_version,
+    version => $graylog['major_version'],
   }->
   class { 'graylog::server':
     config => $graylog['config'],

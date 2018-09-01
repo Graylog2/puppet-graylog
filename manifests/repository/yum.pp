@@ -1,5 +1,5 @@
 class graylog::repository::yum(
-  $url,
+  String $url,
 ) {
   $gpg_file = '/etc/pki/rpm-gpg/RPM-GPG-KEY-graylog'
 
