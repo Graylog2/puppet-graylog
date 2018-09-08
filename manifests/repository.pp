@@ -1,6 +1,6 @@
 class graylog::repository(
   String           $version,
-  Optional[String] $url,
+  Optional[String] $url = undef,
   String           $release,
 ) {
   if $url == undef {

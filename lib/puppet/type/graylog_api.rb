@@ -1,5 +1,4 @@
-require 'puppet/provider/graylog_api'
-require 'pry'
+require_relative '../provider/graylog_api'
 
 Puppet::Type.newtype(:graylog_api) do
 

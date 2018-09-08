@@ -19,13 +19,16 @@ class graylog::allinone(
   if has_key($elasticsearch, 'repo_version') {
     $es_repo_version = $elasticsearch['repo_version']
   } else {
-    $es_repo_version = '5.x'
+    $es_repo_version = 5
+  }
+
+  class { 'elastic_stack::repo':
+    version => $es_repo_version,
   }
 
   class { 'elasticsearch':
     version      => $es_version,
     manage_repo  => true,
-    repo_version => $es_repo_version,
   }->
   elasticsearch::instance { 'graylog':
     config => {
@@ -34,11 +37,10 @@ class graylog::allinone(
     },
   }
 
-
   class { 'graylog::repository':
     version => $graylog['major_version'],
   }->
   class { 'graylog::server':
-    config => $graylog['config'],
+    * => $graylog['settings'],
   }
 }

@@ -48,7 +48,7 @@ Puppet::Type.newtype(:graylog_ldap_settings) do
   end
 
   newproperty(:group_mapping) do
-    desc "A hash mapping LDAP groups to Graylog groups"
+    desc "A hash mapping LDAP groups to Graylog roles"
   end
 
   newproperty(:group_search_base) do
@@ -72,4 +72,5 @@ Puppet::Type.newtype(:graylog_ldap_settings) do
   end
 
   autorequire('graylog_api') {'api'}
+  autorequire('graylog_role') { self[:group_mapping].values + [self[:default_group]] }
 end

@@ -42,6 +42,25 @@ class graylog::server(
     hasrestart => true,
     subscribe  => File['/etc/graylog/server/server.conf'],
   }
+
+  $pattern = /http:\/\/[\w.-]+:(\d+)/
+
+  if 'rest_listen_uri' in $config {
+    $api_port = match($config['rest_listen_uri'],$pattern)[1]
+  } else {
+    $api_port = 9000
+  }
+
+  exec {"wait for graylog api":
+    require => Service["graylog-server"],
+    command => "/usr/bin/wget --spider --tries 10 --retry-connrefused --no-check-certificate ${config[rest_listen_uri]}",
+  }
+
+  graylog_api { 'api':
+    password => $root_password,
+    port     => $api_port,
+    require  => Exec['wait for graylog api'],
+  }
 }
 
 

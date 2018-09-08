@@ -1,4 +1,5 @@
 require_relative '../graylog_api'
+require 'pry'
 
 Puppet::Type.type(:graylog_input).provide(:graylog_api, parent: Puppet::Provider::GraylogAPI) do
 
@@ -26,50 +27,31 @@ Puppet::Type.type(:graylog_input).provide(:graylog_api, parent: Puppet::Provider
     netflow_udp: 'org.graylog.plugins.netflow.inputs.NetFlowUdpInput',
     beats: 'org.graylog.plugins.beats.BeatsInput', 
     json_path: 'org.graylog2.inputs.misc.jsonpath.JsonPathInput', 
-    fake: 'org.graylog2.inputs.random.FakeHTTPMessageInput',
+    fake: 'org.graylog2.inputs.random.FakeHttpMessageInput',
   }
 
   mk_resource_methods
 
-  attr_accessor :input_id
-
   def self.instances
-    result = get('system/inputs')
+    results = get('system/inputs')
     results['inputs'].map do |data|
       input = new(
         ensure: :present,
         name: data['title'],
-        type: INPUT_TYPES.key(data['type'])),
-        scope: data['global'] ? 'global' : 'local'
-        configuration: data['attributes']
+        type: INPUT_TYPES.key(data['type']),
+        scope: (data['global'] ? 'global' : 'local'),
+        configuration: data['attributes'],
       )
-      input.input_id = data['id']
+      input.rest_id = data['id']
       input
     end
   end
 
-  def exists?
-    @property_hash[:ensure] == :present
-  end
-
-  def create
-    post('system/inputs',{
+  def flush
+    binding.pry
+    simple_flush("system/inputs",{
       title: resource[:name],
-      type: INPUT_TYPES[resource[:type]],
-      global: global?,
-      configuration: resource[:configuration],
-      node: node,
-    })
-  end
-
-  def destroy
-    delete("system/inputs/#{input_id}")
-  end
-
-  def update
-    put("system/inputs/#{input_id}",{
-      title: resource[:name],
-      type: INPUT_TYPES[resource[:type]],
+      type: INPUT_TYPES[resource[:type].to_sym],
       global: global?,
       configuration: resource[:configuration],
       node: node,

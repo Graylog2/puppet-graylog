@@ -1,5 +1,3 @@
-require 'puppet/property/boolean'
-
 Puppet::Type.newtype(:graylog_input) do
 
   ensurable
@@ -31,7 +29,6 @@ Puppet::Type.newtype(:graylog_input) do
     desc "A hash of configuration values for the input; structure varies by input type"
     isrequired
   end
-
 
   autorequire('graylog_api') {'api'}
 end
