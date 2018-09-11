@@ -1,4 +1,4 @@
-define graylog::input::gelf_udp(
+define graylog::input::syslog_udp(
   Boolean                $allow_override_date       = true,
   String                 $bind_address              = '0.0.0.0',
   Boolean                $expand_structured_data    = true,
