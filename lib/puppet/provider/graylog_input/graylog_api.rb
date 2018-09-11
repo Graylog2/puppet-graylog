@@ -38,7 +38,7 @@ Puppet::Type.type(:graylog_input).provide(:graylog_api, parent: Puppet::Provider
       input = new(
         ensure: :present,
         name: data['title'],
-        type: INPUT_TYPES.key(data['type']),
+        type: data['type'],
         scope: (data['global'] ? 'global' : 'local'),
         configuration: data['attributes'],
       )
@@ -51,7 +51,7 @@ Puppet::Type.type(:graylog_input).provide(:graylog_api, parent: Puppet::Provider
     binding.pry
     simple_flush("system/inputs",{
       title: resource[:name],
-      type: INPUT_TYPES[resource[:type].to_sym],
+      type: resource[:type],
       global: global?,
       configuration: resource[:configuration],
       node: node,
