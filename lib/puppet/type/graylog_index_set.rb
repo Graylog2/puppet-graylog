@@ -1,5 +1,4 @@
 require 'puppet/property/boolean'
-require 'pry'
 
 Puppet::Type.newtype(:graylog_index_set) do
 

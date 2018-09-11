@@ -1,5 +1,4 @@
 require_relative '../graylog_api'
-require 'pry'
 
 Puppet::Type.type(:graylog_index_set).provide(:graylog_api, parent: Puppet::Provider::GraylogAPI) do
 

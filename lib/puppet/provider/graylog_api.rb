@@ -1,6 +1,5 @@
 require 'rest-client'
 require 'json'
-require 'pry'
 
 class Puppet::Provider::GraylogAPI < Puppet::Provider
 
