@@ -1,7 +1,10 @@
-require 'rest-client'
-require 'json'
+require 'rest-client' if Puppet.features.rest_client?
+require 'json' if Puppet.features.json?
 
 class Puppet::Provider::GraylogAPI < Puppet::Provider
+
+  confine feature: :json
+  confine feature: :rest_client
 
   class << self
     attr_accessor :api_password, :api_port

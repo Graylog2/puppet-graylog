@@ -53,7 +53,7 @@ class graylog::server(
 
   exec {"wait for graylog api":
     require => Service["graylog-server"],
-    command => "/usr/bin/wget --spider --tries 10 --retry-connrefused --no-check-certificate ${config[rest_listen_uri]}",
+    command => "/usr/bin/curl --head --retry 10 --retry-connrefused --insecure ${config[rest_listen_uri]}",
   }
 
   graylog_api { 'api':
