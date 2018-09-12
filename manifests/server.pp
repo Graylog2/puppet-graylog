@@ -51,16 +51,9 @@ class graylog::server(
     $api_port = 9000
   }
 
-  exec {"wait for graylog api":
-    require => Service["graylog-server"],
-    command => "/usr/bin/curl --head --retry 10 --retry-connrefused --insecure ${config[rest_listen_uri]}",
-  }
-
   graylog_api { 'api':
     password => $root_password,
     port     => $api_port,
-    require  => Exec['wait for graylog api'],
+    require  => Service['graylog-server'],
   }
 }
-
-
