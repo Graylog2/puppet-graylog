@@ -47,7 +47,6 @@ Puppet::Type.type(:graylog_input).provide(:graylog_api, parent: Puppet::Provider
   end
 
   def flush
-    binding.pry
     simple_flush("system/inputs",{
       title: resource[:name],
       type: resource[:type],
