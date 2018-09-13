@@ -12,7 +12,7 @@ Puppet::Type.type(:graylog_ldap_settings).provide(:graylog_api, parent: Puppet::
   def flush
     Puppet.info("Flushing graylog_ldap_settings")
     data = @property_hash.reject {|k,v| k == :name }
-    put('system/ldap/settings',data)
+    put('system/ldap/settings',recursive_undef_to_nil(data))
   end
 
 end
