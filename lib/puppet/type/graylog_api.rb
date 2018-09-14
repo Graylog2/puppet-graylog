@@ -24,7 +24,6 @@ Puppet::Type.newtype(:graylog_api) do
     end
 
     def insync?(is)
-      Puppet::Provider::GraylogAPI.api_password = @should.first
       true
     end
   end
@@ -38,9 +37,7 @@ Puppet::Type.newtype(:graylog_api) do
     end
 
     def insync?(is)
-      Puppet::Provider::GraylogAPI.api_port = @should.first
       true
     end
   end
-
 end

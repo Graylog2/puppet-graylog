@@ -45,7 +45,9 @@ class Puppet::Provider::GraylogAPI < Puppet::Provider
       recursive_nil_to_undef(JSON.parse(result.body)) unless result.empty?
     end
 
+    # Under Puppet Apply, undef in puppet-lang becomes :undef instead of nil
     def recursive_nil_to_undef(data)
+      return data unless Puppet.settings[:name] == 'apply'
       case data
       when nil
         :undef
@@ -107,7 +109,9 @@ class Puppet::Provider::GraylogAPI < Puppet::Provider
     @action = :destroy
   end
 
+  # Under Puppet Apply, undef in puppet-lang becomes :undef instead of nil
   def recursive_undef_to_nil(data)
+    return data unless Puppet.settings[:name] == 'apply'
     case data
     when :undef
       nil
