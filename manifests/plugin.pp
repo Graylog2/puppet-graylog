@@ -2,7 +2,7 @@ define graylog::plugin(
   String $source_url,
 ){
   archive { "/usr/share/graylog-server/plugin/${title}.jar":
-    owner   => 'root',
+    user    => 'root',
     group   => 'root',
     source  => $source_url,
     extract => false,
