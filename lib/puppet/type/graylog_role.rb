@@ -16,6 +16,9 @@ Puppet::Type.newtype(:graylog_role) do
 
   newproperty(:permissions, array_matching: :all) do
     desc "Permissions this role provides, see /system/permissions API endpoint for list of valid permissions"
+    def insync?(is)
+      is.sort == should.sort
+    end
   end
 
   autorequire('graylog_api') {'api'}
