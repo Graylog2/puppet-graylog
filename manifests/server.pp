@@ -43,7 +43,7 @@ class graylog::server(
     subscribe  => [
       File['/etc/graylog/server/server.conf'],
       Package['graylog-server'],
-    ]
+    ],
   }
 
   $pattern = /http:\/\/[\w.-]+:(\d+)/
