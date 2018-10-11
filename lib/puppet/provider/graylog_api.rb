@@ -1,10 +1,10 @@
-require 'rest-client' if Puppet.features.rest_client?
+require 'httparty' if Puppet.features.httparty?
 require 'json' if Puppet.features.json?
 
 class Puppet::Provider::GraylogAPI < Puppet::Provider
 
   confine feature: :json
-  confine feature: :rest_client
+  confine feature: :httparty
 
   class << self
     attr_accessor :api_password, :api_port
@@ -15,30 +15,32 @@ class Puppet::Provider::GraylogAPI < Puppet::Provider
       fail "No Graylog_api['api'] resource defined!" unless api_password && api_port # It would be nicer to do this in the Type, but I don't see how without writing it over and over again for each type.
       case method
       when :get, :delete
-        headers = {
-          params: params,
-          accept: :json,
-        }
-        payload = nil
+        headers = { 'Accept' => 'application/json' }
+        query   = params
+        body = nil
       when :post, :put
         headers = {
-          accept: :json,
-          content_type: :json,
+          'Accept' => 'application/json',
+          'Content-Type' => 'application/json',
         }
-        payload = params.to_json
+        body = params.to_json
+        query = nil
       end
       begin
         Puppet.debug { "#{method.upcase} request for http://localhost:#{api_port}/api/#{path} with params #{params.inspect}" }
-        result = RestClient::Request.execute(
-          method: method,
-          url: "http://localhost:#{api_port}/api/#{path}",
-          user: 'admin',
-          password: api_password,
+        result = HTTParty.send(
+          method,
+          "http://localhost:#{api_port}/api/#{path}",
+          basic_auth: {
+            username: 'admin',
+            password: api_password,
+          },
           headers: headers,
-          payload: payload,
+          query: query,
+          body: body,
         )
         Puppet.debug("Got result #{result.body}")
-      rescue RestClient::ExceptionWithResponse => e
+      rescue HTTParty::ResponseError => e
         Puppet.send_log(:err, "Got error response #{e.response}")
         raise e
       end
