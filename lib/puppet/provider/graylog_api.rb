@@ -7,7 +7,15 @@ class Puppet::Provider::GraylogAPI < Puppet::Provider
   confine feature: :httparty
 
   class << self
-    attr_accessor :api_password, :api_port
+    attr_writer :api_password, :api_port
+
+    def api_password
+      @api_password || ENV['GRAYLOG_API_PASSWORD']
+    end
+
+    def api_port
+      @api_port || ENV['GRAYLOG_API_PORT']
+    end
 
     def request(method,path,params={})
       api_password = Puppet::Provider::GraylogAPI.api_password
@@ -44,7 +52,7 @@ class Puppet::Provider::GraylogAPI < Puppet::Provider
         Puppet.send_log(:err, "Got error response #{e.response}")
         raise e
       end
-      recursive_nil_to_undef(JSON.parse(result.body)) unless result.empty?
+      recursive_nil_to_undef(JSON.parse(result.body)) unless result.nil?
     end
 
     # Under Puppet Apply, undef in puppet-lang becomes :undef instead of nil
