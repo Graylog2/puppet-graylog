@@ -1,8 +1,8 @@
 class graylog::repository(
-  String           $version,
-  Optional[String] $url = undef,
-  String           $release,
-) {
+  String           $version = $graylog::params::major_version,
+  Optional[String] $url     = undef,
+  String           $release = $graylog::params::repository_release,
+) inherits graylog::params {
   if $url == undef {
     $graylog_repo_url = $::osfamily ? {
       'debian' => 'https://downloads.graylog.org/repo/debian/',

@@ -1,7 +1,7 @@
 class graylog::allinone(
   Hash $elasticsearch,
   Hash $graylog,
-) {
+) inherits graylog::params {
 
   class {'::mongodb::globals':
     manage_package_repo => true,

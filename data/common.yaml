@@ -1,5 +1,0 @@
-graylog::repository::release: stable
-graylog::repository::version: '2.4'
-graylog::server::group: graylog
-graylog::server::package_version: installed
-graylog::server::user: graylog
