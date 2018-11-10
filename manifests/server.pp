@@ -1,12 +1,12 @@
 class graylog::server(
   Hash    $config,
-  Boolean $enable = true,
-  String  $ensure = running,
-  String  $group,
-  String  $package_version,
+  Boolean $enable          = true,
+  String  $ensure          = running,
+  String  $group           = $graylog::params::server_group,
+  String  $package_version = $graylog::params::package_version,
   String  $password_secret,
   String  $root_password,
-  String  $user,
+  String  $user            = $graylog::params::server_user,
 ) {
   $root_password_sha2 = graylog::sha256($root_password)
 
