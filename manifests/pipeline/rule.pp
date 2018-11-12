@@ -1,6 +1,6 @@
 define graylog::pipeline::rule(
   String $description = '',
-  String $condition   = 'true',
+  String $condition   = 'true', # lint:ignore:quoted_booleans This is a Graylog string, not a Puppet boolean.
   String $action      = '',
 ) {
   $rule_body = @("END_OF_RULE")

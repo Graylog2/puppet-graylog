@@ -12,11 +12,11 @@ define graylog::input::gelf_udp(
     type          => 'org.graylog2.inputs.gelf.udp.GELFUDPInput',
     scope         => $scope,
     configuration => {
-      bind_address              => $bind_address,
-      decompress_size_limit     => $decompress_size_limit,
-      recv_buffer_size          => $recv_buffer_size,
-      override_source           => $override_source,
-      port                      => $port,
+      bind_address          => $bind_address,
+      decompress_size_limit => $decompress_size_limit,
+      recv_buffer_size      => $recv_buffer_size,
+      override_source       => $override_source,
+      port                  => $port,
     },
   }
 }

@@ -1,11 +1,11 @@
 class graylog::server(
   Hash    $config,
+  String  $password_secret,
+  String  $root_password,
   Boolean $enable          = true,
   String  $ensure          = running,
   String  $group           = $graylog::params::server_group,
   String  $package_version = $graylog::params::package_version,
-  String  $password_secret,
-  String  $root_password,
   String  $user            = $graylog::params::server_user,
 ) {
   $root_password_sha2 = graylog::sha256($root_password)
@@ -46,7 +46,7 @@ class graylog::server(
     ],
   }
 
-  $pattern = /http:\/\/[\w.-]+:(\d+)/
+  $pattern = /http:\/\/[\w.-]+:(\d+)/ # lint:ignore:unquoted_resource_title This isn't even a resource declaration, get it together lint.
 
   if 'rest_listen_uri' in $config {
     $api_port = match($config['rest_listen_uri'],$pattern)[1]

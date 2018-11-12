@@ -15,14 +15,14 @@ define graylog::input::syslog_udp(
     type          => 'org.graylog2.inputs.syslog.udp.SyslogUDPInput',
     scope         => $scope,
     configuration => {
-      allow_override_date       => $allow_override_date,
-      bind_address              => $bind_address,
-      expand_structured_data    => $expand_structured_data,
-      force_rdns                => $force_rdns,
-      recv_buffer_size          => $recv_buffer_size,
-      override_source           => $override_source,
-      port                      => $port,
-      store_full_message        => $store_full_message,
+      allow_override_date    => $allow_override_date,
+      bind_address           => $bind_address,
+      expand_structured_data => $expand_structured_data,
+      force_rdns             => $force_rdns,
+      recv_buffer_size       => $recv_buffer_size,
+      override_source        => $override_source,
+      port                   => $port,
+      store_full_message     => $store_full_message,
     },
   }
 }
