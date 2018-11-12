@@ -5,8 +5,8 @@ class graylog::allinone(
 
   class {'::mongodb::globals':
     manage_package_repo => true,
-  }->
-  class {'::mongodb::server':
+  }
+  -> class {'::mongodb::server':
     bind_ip => ['127.0.0.1'],
   }
 
@@ -29,8 +29,8 @@ class graylog::allinone(
   class { 'elasticsearch':
     version     => $es_version,
     manage_repo => true,
-  }->
-  elasticsearch::instance { 'graylog':
+  }
+  -> elasticsearch::instance { 'graylog':
     config => {
       'cluster.name' => 'graylog',
       'network.host' => '127.0.0.1',
@@ -39,8 +39,8 @@ class graylog::allinone(
 
   class { 'graylog::repository':
     version => $graylog['major_version'],
-  }->
-  class { 'graylog::server':
+  }
+  -> class { 'graylog::server':
     * => $graylog['settings'],
   }
 }
