@@ -87,8 +87,8 @@ class { 'mongodb::server':
 }
 
 class { 'elasticsearch':
-  version      => '5.5.1',
-  repo_version => '5.x',
+  version      => '6.5.1',
+  repo_version => '6.x',
   manage_repo  => true,
 }->
 elasticsearch::instance { 'graylog':
@@ -99,10 +99,10 @@ elasticsearch::instance { 'graylog':
 }
 
 class { 'graylog::repository':
-  version => '2.4'
+  version => '2.5'
 }->
 class { 'graylog::server':
-  package_version => '2.4.0-9',
+  package_version => '2.5.0-3',
   config          => {
     'password_secret' => '...',    # Fill in your password secret
     'root_password_sha2' => '...', # Fill in your root password hash
@@ -114,7 +114,7 @@ class { 'graylog::server':
 
 ```puppet
 class { '::graylog::repository':
-  version => '2.4'
+  version => '2.5'
 }->
 class { '::graylog::server':
   config  => {
@@ -180,7 +180,7 @@ version.
 
 It defaults to `$graylog::params::major_version`.
 
-Example: `version => '2.4'`
+Example: `version => '2.5'`
 
 ##### `url`
 
@@ -207,7 +207,7 @@ This setting is used to choose the Graylog package version. It defaults to
 install time. You can also use `latest` so it will always update to the latest
 stable version if a new one is available.
 
-Example: `package_version => '2.4.0-9'`
+Example: `package_version => '2.5.0-3'`
 
 ##### `config`
 
@@ -292,8 +292,8 @@ Example:
 
 ```
 elasticsearch => {
-  version      => '5.5.1',
-  repo_version => '5.x',
+  version      => '6.5.1',
+  repo_version => '6.x',
 }
 ```
 
@@ -306,7 +306,7 @@ Example:
 
 ```
 graylog => {
-  major_version => '2.4',
+  major_version => '2.5',
   config        => {
     # ... see graylog::server description for details
   },

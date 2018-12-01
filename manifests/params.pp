@@ -1,5 +1,5 @@
 class graylog::params {
-  $major_version = '2.4'
+  $major_version = '2.5'
   $package_version = 'installed'
 
   $repository_release = 'stable'
