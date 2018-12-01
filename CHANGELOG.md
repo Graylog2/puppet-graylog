@@ -1,3 +1,8 @@
+## 0.7.0 (2018-11-30)
+
+- Update for Graylog 2.5.0
+- Allow puppetlabs-apt < 7.0.0, puppetlabs-stdlib < 6.0.0 (#27)
+
 ## 0.6.0 (2018-02-02)
 
 - Replace deprecated size() with length() (#22, #21)
