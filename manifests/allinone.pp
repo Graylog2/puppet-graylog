@@ -19,8 +19,8 @@ class graylog::allinone(
   }
 
   class { 'elasticsearch':
-    version      => $es_version,
-    manage_repo  => true,
+    version     => $es_version,
+    manage_repo => true,
   }->
   elasticsearch::instance { 'graylog':
     config => {
