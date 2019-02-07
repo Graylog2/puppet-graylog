@@ -35,11 +35,11 @@ class graylog::server(
   }
 
   file { '/etc/graylog/server/server.conf':
-    ensure    => file,
-    owner     => $user,
-    group     => $group,
-    mode      => '0640',
-    content   => template("${module_name}/server/graylog.conf.erb"),
+    ensure  => file,
+    owner   => $user,
+    group   => $group,
+    mode    => '0640',
+    content => template("${module_name}/server/graylog.conf.erb"),
   }
 
   service { 'graylog-server':
