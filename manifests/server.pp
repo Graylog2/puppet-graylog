@@ -40,7 +40,6 @@ class graylog::server(
     group     => $group,
     mode      => '0640',
     content   => template("${module_name}/server/graylog.conf.erb"),
-    show_diff => true,
   }
 
   service { 'graylog-server':
