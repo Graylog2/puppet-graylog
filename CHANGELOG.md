@@ -1,3 +1,10 @@
+## 0.8.0 (2019-02-14)
+
+- Update for Graylog 3.0.0
+- Add capability for installation behind proxy (yum/apt) (#20)
+- Don't force `show_diff` to `true` (#24)
+- Bump required stdlib version to 4.16 for the length function (#23)
+
 ## 0.7.0 (2018-11-30)
 
 - Update for Graylog 2.5.0
