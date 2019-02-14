@@ -102,7 +102,7 @@ class { 'graylog::repository':
   version => '3.0'
 }->
 class { 'graylog::server':
-  package_version => '3.0.0-11.rc.2',
+  package_version => '3.0.0-12',
   config          => {
     'password_secret' => '...',    # Fill in your password secret
     'root_password_sha2' => '...', # Fill in your root password hash
@@ -185,7 +185,7 @@ setting should not be changed.
 
 ##### `proxy`
 
-This setting is used to facilitate package installation with proxy. 
+This setting is used to facilitate package installation with proxy.
 
 ##### `release`
 
@@ -205,7 +205,7 @@ This setting is used to choose the Graylog package version. It defaults to
 install time. You can also use `latest` so it will always update to the latest
 stable version if a new one is available.
 
-Example: `package_version => '3.0.0-11.rc.2'`
+Example: `package_version => '3.0.0-12'`
 
 ##### `config`
 
