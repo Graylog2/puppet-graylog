@@ -18,6 +18,12 @@
 
 This module can be used to install and configure a Graylog system. (https://www.graylog.org/)
 
+### Native Types
+
+Native types to configure dashboards, inputs, streams and others are provided
+by the community maintained [puppet-graylog_api](https://github.com/magicmemories/puppet-graylog_api)
+module.
+
 ## Setup
 
 ### What graylog affects
