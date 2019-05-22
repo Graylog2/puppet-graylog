@@ -12,6 +12,8 @@ class graylog::repository::apt(
     'graylog2-package-repository.s3.amazonaws.com',
   ]
 
+  anchor { 'graylog::repository::apt::begin': }
+
   if !defined(Package[$apt_transport_package]) {
     ensure_packages([$apt_transport_package])
   }
@@ -77,4 +79,11 @@ class graylog::repository::apt(
       before            => Apt::Source['graylog']
     }
   }
+
+  anchor { 'graylog::repository::apt::end': }
+
+  Anchor['graylog::repository::apt::begin']
+  -> Exec['apt_update']
+  -> Anchor['graylog::repository::apt::end']
+  -> Anchor['graylog::repository::end']
 }
