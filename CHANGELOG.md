@@ -1,9 +1,9 @@
 ## 0.9.0 (2019-08-01)
 
-- Fix problem with missing "/etc/apt/apt.conf.d" directory (#31) (WARN)
-  **Attention:** This also changes the proxy configuration file from `/etc/apt/apt.conf.d/01proxy`
-  to `/etc/apt/apt.conf.d/01_graylog_proxy`. Make sure to remove the old one when upgrading
-  this module.
+- Fix problem with missing "/etc/apt/apt.conf.d" directory (#31)
+  - **Attention:** This also changes the proxy configuration file from `/etc/apt/apt.conf.d/01proxy`
+    to `/etc/apt/apt.conf.d/01_graylog_proxy`. Make sure to remove the old one when upgrading
+    this module.
 - Run apt-get update after adding repo and before installing server package (#32)
 
 ## 0.8.0 (2019-02-14)
