@@ -5,6 +5,7 @@ class graylog::server(
   $group = $graylog::params::server_group,
   $ensure = running,
   $enable = true,
+  $java_opts = $graylog::params::java_opts
 ) inherits graylog::params {
   if $config == undef {
     fail('Missing "config" setting!')
@@ -42,6 +43,14 @@ class graylog::server(
     content => template("${module_name}/server/graylog.conf.erb"),
   }
 
+  file { '/etc/sysconfig/graylog-server':
+    ensure => file,
+    owner  => 'root',
+    group  => 'root',
+    mode    => '0644',
+    content => template("${module_name}/sysconfig/graylog-server.erb"),
+  }
+
   service { 'graylog-server':
     ensure     => $ensure,
     enable     => $enable,
@@ -52,6 +61,7 @@ class graylog::server(
   Anchor['graylog::server::start']
   ->Package['graylog-server']
   ->File['/etc/graylog/server/server.conf']
+  ->File['/etc/sysconfig/graylog-server']
   ~>Service['graylog-server']
   ->Anchor['graylog::server::end']
 }
