@@ -4,10 +4,6 @@ class graylog::params {
 
   $repository_release = 'stable'
 
-  $java_opts = [
-    '-Xms1g', '-Xmx1g', '-XX:NewRatio=1', '-server', '-XX:+ResizeTLAB', '-XX:+UseConcMarkSweepGC', '-XX:+CMSConcurrentMTEnabled', '-XX:+CMSClassUnloadingEnabled', '-XX:+UseParNewGC', '-XX:-OmitStackTraceInFastThrow',
-  ]
-
   $default_config = {
     'bin_dir'             => '/usr/share/graylog-server/bin',
     'data_dir'            => '/var/lib/graylog-server',
