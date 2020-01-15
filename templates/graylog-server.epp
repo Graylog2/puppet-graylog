@@ -1,0 +1,14 @@
+# FILE MANAGED BY PUPPET
+
+# Path to the java executable.
+JAVA=<%= $java_path %>
+
+# Default Java options for heap and garbage collection.
+GRAYLOG_SERVER_JAVA_OPTS=<%= $java_opts %>
+
+# Pass some extra args to graylog-server. (i.e. "-d" to enable debug mode)
+GRAYLOG_SERVER_ARGS=<%= $graylog_server_args %>
+
+# Program that will be used to wrap the graylog-server command. Useful to
+# support programs like authbind.
+GRAYLOG_COMMAND_WRAPPER=<%= $graylog_server_wrapper %>

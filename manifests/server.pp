@@ -34,6 +34,14 @@ class graylog::server(
     ensure => $package_version
   }
 
+  file { $graylog_jvm__settings:
+    ensure => file,
+    owner  => 'root',
+    group  => 'root',
+    mode    => '0644',
+    content => epp("${module_name}/graylog-server.epp"),
+  }
+
   file { '/etc/graylog/server/server.conf':
     ensure  => file,
     owner   => $user,
@@ -52,6 +60,7 @@ class graylog::server(
   Anchor['graylog::server::start']
   ->Package['graylog-server']
   ->File['/etc/graylog/server/server.conf']
+  ->File[$graylog_jvm__settings]
   ~>Service['graylog-server']
   ->Anchor['graylog::server::end']
 }
