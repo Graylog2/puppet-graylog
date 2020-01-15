@@ -1,4 +1,4 @@
-class graylog::params(
+class graylog::params (
   String $java_opts              = '-Xms1g -Xmx4g -XX:NewRatio=1 -server -XX:+ResizeTLAB -XX:+UseConcMarkSweepGC -XX:+CMSConcurrentMTEnabled -XX:+CMSClassUnloadingEnabled -XX:+UseParNewGC -XX:-OmitStackTraceInFastThrow'
   String $java_path              = '/usr/bin/java'
   String $graylog_server_args    = ''
