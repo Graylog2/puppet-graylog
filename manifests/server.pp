@@ -35,9 +35,9 @@ class graylog::server(
   }
 
   file { $graylog_jvm__settings:
-    ensure => file,
-    owner  => 'root',
-    group  => 'root',
+    ensure  => file,
+    owner   => 'root',
+    group   => 'root',
     mode    => '0644',
     content => epp("${module_name}/graylog-server.epp"),
   }
