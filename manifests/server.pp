@@ -5,6 +5,11 @@ class graylog::server(
   $group = $graylog::params::server_group,
   $ensure = running,
   $enable = true,
+  String $java_opts              = $graylog::params::java_opts,
+  String $java_path              = $graylog::params::java_path,
+  String $graylog_server_args    = $graylog::params::graylog_server_args,
+  String $graylog_server_wrapper = $graylog::params::graylog_server_wrapper,
+
 ) inherits graylog::params {
   if $config == undef {
     fail('Missing "config" setting!')
