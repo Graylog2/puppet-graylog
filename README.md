@@ -54,7 +54,7 @@ The following modules are required to use the graylog module:
 * [puppetlabs/stdlib](https://forge.puppet.com/puppetlabs/stdlib)
 
 Those dependencies are automatically installed if you are using the Puppet
-module tool or something like [librarian-puppet](http://librarian-puppet.com/).
+module tool or something like [librarian-puppet](https://github.com/voxpupuli/librarian-puppet).
 
 #### Puppet Module Tool
 
