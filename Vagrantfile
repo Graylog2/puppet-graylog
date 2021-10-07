@@ -14,6 +14,13 @@ Vagrant.configure('2') do |config|
   apt-get install -y init-system-helpers
   SCRIPT
 
+  rhel_script = <<-SCRIPT
+  yum install -y https://yum.puppet.com/puppet7/puppet7-release-el-8.noarch.rpm
+  yum install -y puppet-agent
+  yum install -y rubygems
+  SCRIPT
+
+
   # Using a custom shell provisioner to run Puppet because the vagrant puppet
   # provisioner does not work for me...
   common_script = <<-SCRIPT
@@ -33,16 +40,6 @@ Vagrant.configure('2') do |config|
   config.vm.provision 'file', source: 'tests/vagrant.pp',
                               destination: '/home/vagrant/site.pp'
 
-  config.vm.define 'ubuntu1404' do |machine|
-    machine.vm.box = 'puppetlabs/ubuntu-14.04-64-puppet'
-    machine.vm.network 'private_network', ip: '10.10.0.11'
-    machine.vm.network "forwarded_port", guest: 9000, host: 9000
-    machine.vm.network "forwarded_port", guest: 12900, host: 12900
-
-    machine.vm.provision 'debian', type: 'shell', inline: debian_script
-    machine.vm.provision 'common', type: 'shell', inline: common_script
-  end
-
   config.vm.define 'ubuntu1604' do |machine|
     machine.vm.box = 'puppetlabs/ubuntu-16.04-64-puppet'
     machine.vm.network 'private_network', ip: '10.10.0.11'
@@ -54,11 +51,18 @@ Vagrant.configure('2') do |config|
     machine.vm.provision 'common', type: 'shell', inline: common_script
   end
 
-  config.vm.define 'centos7' do |machine|
-    machine.vm.box = 'puppetlabs/centos-7.2-64-puppet'
+  config.vm.define 'centos8' do |machine|
+    machine.vm.box = "geerlingguy/centos8"
+
     machine.vm.network 'private_network', ip: '10.10.0.11'
     machine.vm.network "forwarded_port", guest: 9000, host: 9000
     machine.vm.network "forwarded_port", guest: 12900, host: 12900
+
+    machine.vm.provision "shell", inline: rhel_script
+    machine.vm.provision "puppet" do |machine|
+      machine.manifests_path = "tests/install/manifests"
+      machine.manifest_file = "puppetserver.pp"
+    end
 
     machine.vm.provision 'common', type: 'shell', inline: common_script
   end
