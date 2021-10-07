@@ -7,15 +7,6 @@
   "source": "https://github.com/Graylog2/puppet-graylog",
   "project_page": "https://github.com/Graylog2/puppet-graylog",
   "issues_url": "https://github.com/Graylog2/puppet-graylog/issues",
-  "tags": [
-    "graylog2",
-    "graylog",
-    "logging",
-    "logs",
-    "events",
-    "elasticsearch",
-    "mongodb"
-  ],
   "dependencies": [
     {
       "name": "puppetlabs/stdlib",
@@ -31,7 +22,8 @@
       "operatingsystem": "CentOS",
       "operatingsystemrelease": [
         "6.0",
-        "7.0"
+        "7.0",
+        "8.0"
       ]
     },
     {
@@ -39,7 +31,8 @@
       "operatingsystemrelease": [
         "14.04",
         "16.04",
-        "18.04"
+        "18.04",
+        "20.04"
       ]
     },
     {
@@ -47,9 +40,28 @@
       "operatingsystemrelease": [
         "7",
         "8",
-        "9"
+        "9",
+        "10",
+        "11"
       ]
     }
   ],
-  "data_provider": null
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": ">= 6.21.0 < 8.0.0"
+    }
+  ],
+  "tags": [
+    "graylog2",
+    "graylog",
+    "logging",
+    "logs",
+    "events",
+    "elasticsearch",
+    "mongodb"
+  ],
+  "pdk-version": "2.2.0",
+  "template-url": "pdk-default#2.2.0",
+  "template-ref": "tags/2.2.0-0-g2381db6"
 }
