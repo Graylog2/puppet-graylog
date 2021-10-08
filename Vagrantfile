@@ -27,10 +27,11 @@ Vagrant.configure('2') do |config|
   ln -sf /vagrant /etc/puppetlabs/code/environments/production/modules/graylog
 
   # Required to run graylog::allinone
+  test -d /etc/puppetlabs/code/environments/production/modules/elasticsearch || puppet module install elastic-elasticsearch
   test -d /etc/puppetlabs/code/environments/production/modules/apt || puppet module install puppetlabs-apt
   test -d /etc/puppetlabs/code/environments/production/modules/java || puppet module install puppetlabs-java
   test -d /etc/puppetlabs/code/environments/production/modules/mongodb || puppet module install puppet-mongodb
-  test -d /etc/puppetlabs/code/environments/production/modules/elasticsearch || puppet module install elastic-elasticsearch
+
 
   cp /home/vagrant/site.pp /etc/puppetlabs/code/environments/production/manifests/
 
