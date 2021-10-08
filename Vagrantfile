@@ -3,10 +3,13 @@
 
 Vagrant.configure('2') do |config|
   debian_script = <<-SCRIPT
-  # Fix issue with puppetlabs key (probably because of the old vagrant box)
-  (cd /tmp && wget https://apt.puppetlabs.com/pubkey.gpg && apt-key add pubkey.gpg)
-
-  apt-get update
+  dpkg -s puppet-agent >/dev/null
+  if [ $? -ne 0 ]; then
+    wget http://apt.puppet.com/puppet7-release-focal.deb
+    dpkg -i puppet7-release-focal.deb
+    apt-get update
+    apt-get install -y puppet-agent
+  fi
   SCRIPT
 
   debian_systemd_script = <<-SCRIPT
@@ -41,8 +44,8 @@ Vagrant.configure('2') do |config|
   config.vm.provision 'file', source: 'tests/vagrant.pp',
                               destination: '/home/vagrant/site.pp'
 
-  config.vm.define 'ubuntu1604' do |machine|
-    machine.vm.box = 'puppetlabs/ubuntu-16.04-64-puppet'
+  config.vm.define 'ubuntu2004' do |machine|
+    machine.vm.box = 'geerlingguy/ubuntu2004'
     machine.vm.network 'private_network', ip: '10.10.0.11'
     machine.vm.network "forwarded_port", guest: 9000, host: 9000
     machine.vm.network "forwarded_port", guest: 12900, host: 12900
