@@ -18,12 +18,18 @@ class graylog::allinone(
     $es_version = '7.10.2'
   }
 
+  class { 'elastic_stack::repo':
+    oss => true,
+  }
+
   class { 'elasticsearch':
     version     => $es_version,
     manage_repo => true,
+    oss => true,
     config => {
       'cluster.name' => 'graylog',
       'network.host' => '127.0.0.1',
+      'action.auto_create_index' => false
     },
   }
 
