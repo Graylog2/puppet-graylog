@@ -5,7 +5,7 @@ class graylog::allinone(
 
   class {'::mongodb::globals':
     manage_package_repo => true,
-    version             => '4.0.6',
+    version             => '4.4.9',
   }->
   class {'::mongodb::server':
     bind_ip => ['127.0.0.1'],
@@ -15,14 +15,12 @@ class graylog::allinone(
   if has_key($elasticsearch, 'version') {
     $es_version = $elasticsearch['version']
   } else {
-    $es_version = '6.6.0'
+    $es_version = '7.10.2'
   }
 
   class { 'elasticsearch':
     version     => $es_version,
     manage_repo => true,
-  }->
-  elasticsearch::instance { 'graylog':
     config => {
       'cluster.name' => 'graylog',
       'network.host' => '127.0.0.1',
