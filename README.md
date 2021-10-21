@@ -93,8 +93,8 @@ class { 'mongodb::server':
 }
 
 class { 'elasticsearch':
-  version      => '6.6.0',
-  repo_version => '6.x',
+  version      => '7.10.2',
+  repo_version => '7.x',
   manage_repo  => true,
 }->
 elasticsearch::instance { 'graylog':
@@ -105,10 +105,10 @@ elasticsearch::instance { 'graylog':
 }
 
 class { 'graylog::repository':
-  version => '3.0'
+  version => '4.2'
 }->
 class { 'graylog::server':
-  package_version => '3.0.0-12',
+  package_version => '4.2.0-3',
   config          => {
     'password_secret' => '...',    # Fill in your password secret
     'root_password_sha2' => '...', # Fill in your root password hash
@@ -120,7 +120,7 @@ class { 'graylog::server':
 
 ```puppet
 class { '::graylog::repository':
-  version => '3.0'
+  version => '4.2'
 }->
 class { '::graylog::server':
   config  => {
@@ -180,7 +180,7 @@ version.
 
 It defaults to `$graylog::params::major_version`.
 
-Example: `version => '3.0'`
+Example: `version => '4.2'`
 
 ##### `url`
 
@@ -211,7 +211,7 @@ This setting is used to choose the Graylog package version. It defaults to
 install time. You can also use `latest` so it will always update to the latest
 stable version if a new one is available.
 
-Example: `package_version => '3.0.0-12'`
+Example: `package_version => '4.2.0-3'`
 
 ##### `config`
 
@@ -296,8 +296,8 @@ Example:
 
 ```
 elasticsearch => {
-  version      => '6.5.1',
-  repo_version => '6.x',
+  version      => '7.10.2',
+  repo_version => '7.x',
 }
 ```
 
@@ -310,7 +310,7 @@ Example:
 
 ```
 graylog => {
-  major_version => '3.0',
+  major_version => '4.2',
   config        => {
     # ... see graylog::server description for details
   },
@@ -321,8 +321,8 @@ graylog => {
 
 Supported Graylog versions:
 
-* 2.x
 * 3.x
+* 4.x
 
 Supported platforms:
 
@@ -336,8 +336,8 @@ It uses the `graylog::allinone` class to setup a complete system inside
 the Vagrant box.
 
 ```
-$ vagrant up centos7
-$ vagrant provision centos7
+$ vagrant up centos8
+$ vagrant provision centos8
 ```
 
 This is a quick way to see how the module behaves on a real machine.

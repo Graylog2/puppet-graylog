@@ -3,10 +3,13 @@
 
 Vagrant.configure('2') do |config|
   debian_script = <<-SCRIPT
-  # Fix issue with puppetlabs key (probably because of the old vagrant box)
-  (cd /tmp && wget https://apt.puppetlabs.com/pubkey.gpg && apt-key add pubkey.gpg)
-
-  apt-get update
+  dpkg -s puppet-agent >/dev/null
+  if [ $? -ne 0 ]; then
+    wget http://apt.puppet.com/puppet7-release-focal.deb
+    dpkg -i puppet7-release-focal.deb
+    apt-get update
+    apt-get install -y puppet-agent
+  fi
   SCRIPT
 
   debian_systemd_script = <<-SCRIPT
@@ -14,16 +17,24 @@ Vagrant.configure('2') do |config|
   apt-get install -y init-system-helpers
   SCRIPT
 
+  rhel_script = <<-SCRIPT
+  yum install -y https://yum.puppet.com/puppet7/puppet7-release-el-8.noarch.rpm
+  yum install -y puppet-agent
+  yum install -y rubygems
+  SCRIPT
+
+
   # Using a custom shell provisioner to run Puppet because the vagrant puppet
   # provisioner does not work for me...
   common_script = <<-SCRIPT
   ln -sf /vagrant /etc/puppetlabs/code/environments/production/modules/graylog
 
   # Required to run graylog::allinone
+  test -d /etc/puppetlabs/code/environments/production/modules/elasticsearch || puppet module install elastic-elasticsearch
   test -d /etc/puppetlabs/code/environments/production/modules/apt || puppet module install puppetlabs-apt
   test -d /etc/puppetlabs/code/environments/production/modules/java || puppet module install puppetlabs-java
-  test -d /etc/puppetlabs/code/environments/production/modules/mongodb || puppet module install puppet-mongodb
-  test -d /etc/puppetlabs/code/environments/production/modules/elasticsearch || puppet module install elastic-elasticsearch
+  test -d /etc/puppetlabs/code/environments/production/modules/mongodb || git clone https://github.com/voxpupuli/puppet-mongodb.git /etc/puppetlabs/code/environments/production/modules/mongodb/
+
 
   cp /home/vagrant/site.pp /etc/puppetlabs/code/environments/production/manifests/
 
@@ -33,18 +44,8 @@ Vagrant.configure('2') do |config|
   config.vm.provision 'file', source: 'tests/vagrant.pp',
                               destination: '/home/vagrant/site.pp'
 
-  config.vm.define 'ubuntu1404' do |machine|
-    machine.vm.box = 'puppetlabs/ubuntu-14.04-64-puppet'
-    machine.vm.network 'private_network', ip: '10.10.0.11'
-    machine.vm.network "forwarded_port", guest: 9000, host: 9000
-    machine.vm.network "forwarded_port", guest: 12900, host: 12900
-
-    machine.vm.provision 'debian', type: 'shell', inline: debian_script
-    machine.vm.provision 'common', type: 'shell', inline: common_script
-  end
-
-  config.vm.define 'ubuntu1604' do |machine|
-    machine.vm.box = 'puppetlabs/ubuntu-16.04-64-puppet'
+  config.vm.define 'ubuntu2004' do |machine|
+    machine.vm.box = 'geerlingguy/ubuntu2004'
     machine.vm.network 'private_network', ip: '10.10.0.11'
     machine.vm.network "forwarded_port", guest: 9000, host: 9000
     machine.vm.network "forwarded_port", guest: 12900, host: 12900
@@ -54,11 +55,18 @@ Vagrant.configure('2') do |config|
     machine.vm.provision 'common', type: 'shell', inline: common_script
   end
 
-  config.vm.define 'centos7' do |machine|
-    machine.vm.box = 'puppetlabs/centos-7.2-64-puppet'
+  config.vm.define 'centos8' do |machine|
+    machine.vm.box = "geerlingguy/centos8"
+
     machine.vm.network 'private_network', ip: '10.10.0.11'
     machine.vm.network "forwarded_port", guest: 9000, host: 9000
     machine.vm.network "forwarded_port", guest: 12900, host: 12900
+
+    machine.vm.provision "shell", inline: rhel_script
+    machine.vm.provision "puppet" do |machine|
+      machine.manifests_path = "tests/install/manifests"
+      machine.manifest_file = "puppetserver.pp"
+    end
 
     machine.vm.provision 'common', type: 'shell', inline: common_script
   end
