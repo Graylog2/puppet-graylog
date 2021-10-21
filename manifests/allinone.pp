@@ -25,10 +25,10 @@ class graylog::allinone(
   class { 'elasticsearch':
     version     => $es_version,
     manage_repo => true,
-    oss => true,
-    config => {
-      'cluster.name' => 'graylog',
-      'network.host' => '127.0.0.1',
+    oss         => true,
+    config      => {
+      'cluster.name'             => 'graylog',
+      'network.host'             => '127.0.0.1',
       'action.auto_create_index' => false
     },
   }
