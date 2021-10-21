@@ -1,6 +1,9 @@
 # Graylog Puppet Module
 
-[![Build Status](https://travis-ci.org/Graylog2/puppet-graylog.png)](https://travis-ci.org/Graylog2/puppet-graylog)
+[![Build Status](https://github.com/Graylog2/puppet-graylog/actions/workflows/validate.yml/badge.svg)](https://github.com/Graylog2/puppet-graylog/actions?query=workflow%3Avalidate)
+[![Puppet Forge](https://img.shields.io/puppetforge/v/graylog/graylog?color=green)](https://forge.puppet.com/modules/graylog/graylog)
+[![Puppet Forge - downloads](https://img.shields.io/puppetforge/dt/graylog/graylog)](https://forge.puppet.com/modules/graylog/graylog)
+
 
 #### Table of Contents
 
