@@ -14,4 +14,7 @@ class graylog::params {
 
   $server_user = 'graylog'
   $server_group = 'graylog'
+
+  $java_initial_heap_size = '1g'
+  $java_max_heap_size = '1g'
 }

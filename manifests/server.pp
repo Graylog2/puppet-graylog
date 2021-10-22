@@ -5,6 +5,8 @@ class graylog::server(
   $group = $graylog::params::server_group,
   $ensure = running,
   $enable = true,
+  $java_initial_heap_size = $graylog::params::java_initial_heap_size,
+  $java_max_heap_size = $graylog::params::java_max_heap_size,
 ) inherits graylog::params {
   if $config == undef {
     fail('Missing "config" setting!')
@@ -40,6 +42,38 @@ class graylog::server(
     group   => $group,
     mode    => '0640',
     content => template("${module_name}/server/graylog.conf.erb"),
+  }
+
+  case $::osfamily {
+    'debian': {
+      file { '/etc/default/graylog-server':
+        ensure  => file,
+        owner   => $user,
+        group   => $group,
+        mode    => '0640',
+        content => epp("${module_name}/server/environment.epp",
+                      {
+                        'java_initial_heap_size' => $java_initial_heap_size,
+                        'java_max_heap_size'     => $java_max_heap_size
+                      }),
+      }
+    }
+    'redhat': {
+      file { '/etc/sysconfig/graylog-server':
+        ensure  => file,
+        owner   => $user,
+        group   => $group,
+        mode    => '0640',
+        content => epp("${module_name}/server/environment.epp",
+                      {
+                        'java_initial_heap_size' => $java_initial_heap_size,
+                        'java_max_heap_size'     => $java_max_heap_size
+                      }),
+      }
+    }
+    default: {
+      fail("${::osfamily} is not supported!")
+    }
   }
 
   service { 'graylog-server':
