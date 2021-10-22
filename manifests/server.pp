@@ -51,7 +51,11 @@ class graylog::server(
         owner   => $user,
         group   => $group,
         mode    => '0640',
-        content => epp("${module_name}/server/environment.epp", {'java_initial_heap_size' => $java_initial_heap_size, 'java_max_heap_size' => $java_max_heap_size}),
+        content => epp("${module_name}/server/environment.epp",
+                      {
+                        'java_initial_heap_size' => $java_initial_heap_size,
+                        'java_max_heap_size'     => $java_max_heap_size
+                      }),
       }
     }
     'redhat': {
