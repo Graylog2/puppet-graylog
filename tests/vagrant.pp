@@ -16,6 +16,8 @@ class { 'graylog::allinone':
       'versionchecks'            => false,
       'usage_statistics_enabled' => false,
       'http_bind_address'        => '0.0.0.0:9000',
+    java_initial_heap_size => '1g',
+    java_max_heap_size => '1g',
     }
   }
 }
