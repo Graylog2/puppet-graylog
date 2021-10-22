@@ -44,8 +44,8 @@ class graylog::allinone(
     version => $graylog_major_version,
   }->
   class { 'graylog::server':
-    config                    => $graylog['config'],
-    java_initial_heap_size    => $graylog['java_initial_heap_size'],
-    java_max_heap_size        => $graylog['java_max_heap_size'],
+    config                 => $graylog['config'],
+    java_initial_heap_size => $graylog['java_initial_heap_size'],
+    java_max_heap_size     => $graylog['java_max_heap_size'],
   }
 }
