@@ -269,6 +269,15 @@ Available options: `running`, 'stopped'
 This setting is used to configure if the Graylog service should be enabled.
 It defaults to `true`.
 
+##### `java_initial_heap_size`
+
+Sets the initial Java heap size (-Xms) for Graylog. Defaults to `1g`.
+
+##### `java_max_heap_size`
+
+Sets the maximum Java heap size (-Xmx) for Graylog. Defaults to `1g`.
+
+
 #### Class: graylog::allinone
 
 The `graylog::allinone` class configures a complete Graylog system including
