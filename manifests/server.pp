@@ -7,6 +7,7 @@ class graylog::server(
   $enable = true,
   $java_initial_heap_size = $graylog::params::java_initial_heap_size,
   $java_max_heap_size = $graylog::params::java_max_heap_size,
+  Boolean $restart_on_package_upgrade = false,
 ) inherits graylog::params {
   if $config == undef {
     fail('Missing "config" setting!')
@@ -28,12 +29,18 @@ class graylog::server(
   }
 
   $data = merge($::graylog::params::default_config, $config)
+  
+  $notify = $restart_on_package_upgrade ? {
+    true    => Service['graylog-server'],
+    default => undef,
+  }
 
   anchor { 'graylog::server::start': }
   anchor { 'graylog::server::end': }
 
   package { 'graylog-server':
-    ensure => $package_version
+    ensure => $package_version,
+    notify => $notify,
   }
 
   file { '/etc/graylog/server/server.conf':
