@@ -29,7 +29,7 @@ class graylog::server(
   }
 
   $data = merge($::graylog::params::default_config, $config)
-  
+
   $notify = $restart_on_package_upgrade ? {
     true    => Service['graylog-server'],
     default => undef,

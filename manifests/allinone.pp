@@ -6,8 +6,8 @@ class graylog::allinone(
   class {'::mongodb::globals':
     manage_package_repo => true,
     version             => '4.4.9',
-  }->
-  class {'::mongodb::server':
+  }
+  -> class {'::mongodb::server':
     bind_ip => ['127.0.0.1'],
   }
 
@@ -42,8 +42,8 @@ class graylog::allinone(
 
   class { 'graylog::repository':
     version => $graylog_major_version,
-  }->
-  class { 'graylog::server':
+  }
+  -> class { 'graylog::server':
     config                 => $graylog['config'],
     java_initial_heap_size => $graylog['java_initial_heap_size'],
     java_max_heap_size     => $graylog['java_max_heap_size'],
