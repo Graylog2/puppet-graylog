@@ -2,6 +2,7 @@
 ## 1.0.0 (2021-10-25)
 - Add ability to update Java Heapsize. (#47)
 - Add ability to restart service on package upgrade. (#48) @clxnetom
+- Convert module to PDK. #33
 
 ## 0.9.1 (2021-10-21)
 - Update the module to use the latest version of Graylog. (#44)
