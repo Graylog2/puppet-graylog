@@ -1,14 +1,14 @@
 
 ## 1.0.0 (2021-10-25)
-- Add ability to update Java Heapsize. (#47)
-- Add ability to restart service on package upgrade. (#48) @clxnetom
-- Convert module to PDK. #33
+- Add ability to update Java Heapsize. ([#47](https://github.com/Graylog2/puppet-graylog/issues/47))
+- Add ability to restart service on package upgrade. ([#48](https://github.com/Graylog2/puppet-graylog/issues/48)) @clxnetom
+- Convert module to PDK. ([#33](https://github.com/Graylog2/puppet-graylog/issues/33))
 
 ## 0.9.1 (2021-10-21)
-- Update the module to use the latest version of Graylog. (#44)
+- Update the module to use the latest version of Graylog. ([#44](https://github.com/Graylog2/puppet-graylog/issues/44))
   - Update Vagrant VMs used in test script.
-  - Updated metadata.json to specify supported Puppet and OS versions. (#33)
-  - Updated Elasticsearch config to specify OSS version and disable `action.auto_create_index`. (#38)
+  - Updated metadata.json to specify supported Puppet and OS versions. ([#33](https://github.com/Graylog2/puppet-graylog/issues/33))
+  - Updated Elasticsearch config to specify OSS version and disable `action.auto_create_index`. ([#38](https://github.com/Graylog2/puppet-graylog/issues/38))
   - Migrated CI from TravisCI to Github Actions
 
 ## 0.9.0 (2019-08-01)
