@@ -7,6 +7,7 @@ class graylog::server(
   $enable = true,
   $java_initial_heap_size = $graylog::params::java_initial_heap_size,
   $java_max_heap_size = $graylog::params::java_max_heap_size,
+  $java_opts = $graylog::params::java_opts,
   Boolean $restart_on_package_upgrade = false,
 ) inherits graylog::params {
   if $config == undef {
@@ -61,7 +62,8 @@ class graylog::server(
         content => epp("${module_name}/server/environment.epp",
                       {
                         'java_initial_heap_size' => $java_initial_heap_size,
-                        'java_max_heap_size'     => $java_max_heap_size
+                        'java_max_heap_size'     => $java_max_heap_size,
+                        'java_opts'              => $java_opts
                       }),
       }
     }
@@ -74,7 +76,8 @@ class graylog::server(
         content => epp("${module_name}/server/environment.epp",
                       {
                         'java_initial_heap_size' => $java_initial_heap_size,
-                        'java_max_heap_size'     => $java_max_heap_size
+                        'java_max_heap_size'     => $java_max_heap_size,
+                        'java_opts'              => $java_opts
                       }),
       }
     }

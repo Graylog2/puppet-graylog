@@ -277,6 +277,10 @@ Sets the initial Java heap size (-Xms) for Graylog. Defaults to `1g`.
 
 Sets the maximum Java heap size (-Xmx) for Graylog. Defaults to `1g`.
 
+##### `java_opts`
+
+Additional java options for Graylog. Defaults to ``.
+
 ##### `restart_on_package_upgrade`
 
 This setting restarts the `graylog-server` service if the os package is upgraded.
