@@ -9,8 +9,8 @@ class graylog::repository(
 
   if $url == undef {
     $graylog_repo_url = $::osfamily ? {
-      'debian' => 'https://downloads.graylog.org/repo/debian/',
-      'redhat' => "https://downloads.graylog.org/repo/el/${release}/${version}/\$basearch/",
+      'debian' => 'https://packages.graylog2.org/repo/debian/',
+      'redhat' => "https://packages.graylog2.org/repo/el/${release}/${version}/\$basearch/",
       default  => fail("${::osfamily} is not supported!"),
       }
   } else {
