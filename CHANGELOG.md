@@ -1,3 +1,6 @@
+## 1.0.1 (2023-06-23)
+- Do not manage the repository on RedHat when manage_repo is set to false
+  - **Attention:** This flag has no effect on debian OS
 
 ## 1.0.0 (2021-10-25)
 - Add ability to update Java Heapsize. ([#47](https://github.com/Graylog2/puppet-graylog/issues/47))

@@ -108,7 +108,8 @@ elasticsearch::instance { 'graylog':
 }
 
 class { 'graylog::repository':
-  version => '4.2'
+  version     => '4.2',
+  manage_repo => true,
 }->
 class { 'graylog::server':
   package_version => '4.2.0-3',
@@ -184,6 +185,11 @@ version.
 It defaults to `$graylog::params::major_version`.
 
 Example: `version => '4.2'`
+
+##### `manage_repo`
+
+This setting indicates if the Graylog package repositories are managed automatically.
+This is only valid for RedHat.
 
 ##### `url`
 

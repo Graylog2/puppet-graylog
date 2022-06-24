@@ -1,8 +1,9 @@
-class graylog::repository(
-  $version = $graylog::params::major_version,
-  $url     = undef,
-  $proxy = undef,
-  $release = $graylog::params::repository_release,
+class graylog::repository (
+  $version     = $graylog::params::major_version,
+  $manage_repo = true,
+  $url         = undef,
+  $proxy       = undef,
+  $release     = $graylog::params::repository_release,
 ) inherits graylog::params {
 
   anchor { 'graylog::repository::begin': }
@@ -12,7 +13,7 @@ class graylog::repository(
       'debian' => 'https://downloads.graylog.org/repo/debian/',
       'redhat' => "https://downloads.graylog.org/repo/el/${release}/${version}/\$basearch/",
       default  => fail("${::osfamily} is not supported!"),
-      }
+    }
   } else {
     $graylog_repo_url = $url
   }
@@ -27,9 +28,11 @@ class graylog::repository(
       }
     }
     'redhat': {
-      class { 'graylog::repository::yum':
-        url   => $graylog_repo_url,
-        proxy => $proxy,
+      if $manage_repo != false {
+        class { 'graylog::repository::yum':
+          url   => $graylog_repo_url,
+          proxy => $proxy,
+        }
       }
     }
     default: {
