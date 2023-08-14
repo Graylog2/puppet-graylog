@@ -1,4 +1,5 @@
 class graylog::server(
+  $package_name = $graylog::params::package_name,
   $package_version = $graylog::params::package_version,
   Hash $config = undef,
   $user = $graylog::params::server_user,
@@ -36,7 +37,7 @@ class graylog::server(
   anchor { 'graylog::server::start': }
   anchor { 'graylog::server::end': }
 
-  package { 'graylog-server':
+  package { $package_name:
     ensure => $package_version,
     notify => $notify,
   }
@@ -91,7 +92,7 @@ class graylog::server(
   }
 
   Anchor['graylog::server::start']
-  ->Package['graylog-server']
+  ->Package[$package_name]
   ->File['/etc/graylog/server/server.conf']
   ~>Service['graylog-server']
   ->Anchor['graylog::server::end']

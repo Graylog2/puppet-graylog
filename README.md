@@ -207,6 +207,14 @@ this setting should not be changed.
 
 The `graylog::server` class configures the Graylog server service.
 
+##### `package_name`
+
+This setting is used to choose the Graylog package name. It defaults to
+`graylog-server` to install Graylog Open. You can use `graylog-enterprise`
+to install the Graylog Enterprise package.
+
+Example: `package_name => 'graylog-server'`
+
 ##### `package_version`
 
 This setting is used to choose the Graylog package version. It defaults to
