@@ -41,11 +41,10 @@ The graylog module manages the following things:
 ### Setup Requirements
 
 The module only manages Graylog itself. You need other modules to install
-the required dependencies like Java, MongoDB and Elasticsearch.
+the required dependencies like MongoDB and Elasticsearch.
 
 You could use the following modules to install dependencies:
 
-* [puppetlabs/java](https://forge.puppet.com/puppetlabs/java)
 * [puppet/mongodb](https://forge.puppet.com/puppet/mongodb)
 * [elastic/elasticsearch](https://forge.puppet.com/elastic/elasticsearch)
 
@@ -81,7 +80,7 @@ Make sure to use the latest version of the graylog module!
 ## Usage
 
 As mentioned above, the graylog module only manages the Graylog system. Other
-requirements like Java, MongoDB and Elasticsearch need to be managed via
+requirements like MongoDB and Elasticsearch need to be managed via
 other modules.
 
 The following config creates a setup with MongoDB, Elasticsearch and Graylog
@@ -151,9 +150,6 @@ class { '::graylog::server':
     elasticsearch_hosts                                => 'http://elasticsearch01.domain.local:9200,http://elasticsearch02.domain.local:9200',
     mongodb_uri                                        => 'mongodb://mongouser:mongopass@mongodb01.domain.local:27017,mongodb02.domain.local:27017,mongodb03.domain.local:27017/graylog',
   },
-  require => Class[
-    '::java',
-  ],
 }
 ```
 

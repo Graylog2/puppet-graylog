@@ -2,8 +2,6 @@
 #
 # Login via user "admin" and password "admin"
 
-include java
-
 class { 'graylog::allinone':
   elasticsearch => {
     version      => '7.10.2',
