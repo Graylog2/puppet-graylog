@@ -345,8 +345,6 @@ graylog => {
 
 Supported Graylog versions:
 
-* 3.x
-* 4.x
 * 5.x
 
 Supported platforms:
