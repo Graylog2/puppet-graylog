@@ -1,6 +1,6 @@
 <%- | String $java_initial_heap_size = '1g', String $java_max_heap_size = '1g', String $java_opts = "" | -%>
 # Path to the java executable.
-JAVA=/usr/bin/java
+#JAVA=/usr/bin/java
 
 # Default Java options for heap and garbage collection.
 GRAYLOG_SERVER_JAVA_OPTS="-Xms<%= $java_initial_heap_size %> -Xmx<%= $java_max_heap_size %> -XX:NewRatio=1 -server -XX:+ResizeTLAB -XX:-OmitStackTraceInFastThrow"
