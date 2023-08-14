@@ -41,12 +41,12 @@ The graylog module manages the following things:
 ### Setup Requirements
 
 The module only manages Graylog itself. You need other modules to install
-the required dependencies like MongoDB and Elasticsearch.
+the required dependencies like MongoDB and OpenSearch.
 
 You could use the following modules to install dependencies:
 
 * [puppet/mongodb](https://forge.puppet.com/puppet/mongodb)
-* [elastic/elasticsearch](https://forge.puppet.com/elastic/elasticsearch)
+* [puppet/opensearch](https://forge.puppet.com/modules/puppet/opensearch)
 
 ### Beginning with graylog
 
@@ -80,10 +80,10 @@ Make sure to use the latest version of the graylog module!
 ## Usage
 
 As mentioned above, the graylog module only manages the Graylog system. Other
-requirements like MongoDB and Elasticsearch need to be managed via
+requirements like MongoDB and OpenSearch need to be managed via
 other modules.
 
-The following config creates a setup with MongoDB, Elasticsearch and Graylog
+The following config creates a setup with MongoDB, OpenSearch and Graylog
 on a single node.
 
 ```puppet
@@ -94,16 +94,8 @@ class { 'mongodb::server':
   bind_ip => ['127.0.0.1'],
 }
 
-class { 'elasticsearch':
-  version      => '7.10.2',
-  repo_version => '7.x',
-  manage_repo  => true,
-}->
-elasticsearch::instance { 'graylog':
-  config => {
-    'cluster.name' => 'graylog',
-    'network.host' => '127.0.0.1',
-  }
+class { 'opensearch':
+  version => '2.9.0',
 }
 
 class { 'graylog::repository':
@@ -147,7 +139,7 @@ class { '::graylog::server':
     elasticsearch_shards                               => '4',
     elasticsearch_replicas                             => '1',
     elasticsearch_index_prefix                         => 'graylog',
-    elasticsearch_hosts                                => 'http://elasticsearch01.domain.local:9200,http://elasticsearch02.domain.local:9200',
+    elasticsearch_hosts                                => 'http://opensearch01.domain.local:9200,http://opensearch02.domain.local:9200',
     mongodb_uri                                        => 'mongodb://mongouser:mongopass@mongodb01.domain.local:27017,mongodb02.domain.local:27017,mongodb03.domain.local:27017/graylog',
   },
 }
@@ -161,7 +153,7 @@ class { '::graylog::server':
 
 * `graylog::repository`: Manages the official Graylog package repository
 * `graylog::server`: Installs, configures and manages the Graylog server service
-* `graylog::allinone`: Creates a full Graylog setup including MongoDB and Elasticsearch
+* `graylog::allinone`: Creates a full Graylog setup including MongoDB and OpenSearch
 
 #### Private Classes
 
@@ -293,7 +285,7 @@ It defaults to `false`.
 #### Class: graylog::allinone
 
 The `graylog::allinone` class configures a complete Graylog system including
-MongoDB and Elasticsearch.
+MongoDB and OpenSearch
 
 **Note:** This is nice to quickly setup a running system on a single node but
 should only be used for testing or really small setups.
@@ -305,23 +297,21 @@ Please make sure you have these installed before using the `graylog::allinone` c
 Requirements:
 
 * [puppet/mongodb](https://forge.puppet.com/puppet/mongodb)
-* [elastic/elasticsearch](https://forge.puppet.com/elastic/elasticsearch)
+* [puppet/opensearch](https://forge.puppet.com/modules/puppet/opensearch)
 
-##### `elasticsearch`
+##### `opensearch`
 
-This setting is used to configure the `elasticsearch` Puppet module.
+This setting is used to configure the `opensearch` Puppet module.
 
-There are only two possible hash keys:
+There is only on possible hash key:
 
-* `version`: The Elasticsearch version to use
-* `repo_version`: The Elasticsearch repository version to use
+* `version`: The OpenSearch version to use
 
 Example:
 
 ```
-elasticsearch => {
-  version      => '7.10.2',
-  repo_version => '7.x',
+opensearch => {
+  version => '2.9.0',
 }
 ```
 

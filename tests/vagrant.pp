@@ -3,8 +3,13 @@
 # Login via user "admin" and password "admin"
 
 class { 'graylog::allinone':
-  elasticsearch => {
-    version      => '7.10.2',
+  opensearch => {
+    version  => '2.9.0',
+    settings =>  {
+      'action.auto_create_index'          => false,
+      'plugins.security.ssl.http.enabled' => false,
+      'plugins.security.disabled'         => true,
+    },
   },
   graylog       => {
     major_version          => '5.1',
