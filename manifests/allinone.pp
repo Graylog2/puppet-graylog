@@ -5,7 +5,7 @@ class graylog::allinone(
 
   class {'::mongodb::globals':
     manage_package_repo => true,
-    version             => '4.4.9',
+    version             => '5.0.19',
   }
   -> class {'::mongodb::server':
     bind_ip => ['127.0.0.1'],
