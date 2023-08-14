@@ -41,3 +41,6 @@
 /.vscode/
 /.sync.yml
 /.devcontainer/
+/Rakefile.release
+/Vagrantfile
+/tests
