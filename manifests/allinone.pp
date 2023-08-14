@@ -1,16 +1,14 @@
-class graylog::allinone(
+class graylog::allinone (
   $elasticsearch,
   $graylog,
 ) inherits graylog::params {
-
-  class {'::mongodb::globals':
+  class { 'mongodb::globals':
     manage_package_repo => true,
     version             => '5.0.19',
   }
-  -> class {'::mongodb::server':
+  -> class { 'mongodb::server':
     bind_ip => ['127.0.0.1'],
   }
-
 
   if 'version' in $elasticsearch {
     $es_version = $elasticsearch['version']
@@ -29,10 +27,9 @@ class graylog::allinone(
     config      => {
       'cluster.name'             => 'graylog',
       'network.host'             => '127.0.0.1',
-      'action.auto_create_index' => false
+      'action.auto_create_index' => false,
     },
   }
-
 
   if 'major_version' in $graylog {
     $graylog_major_version = $graylog['major_version']

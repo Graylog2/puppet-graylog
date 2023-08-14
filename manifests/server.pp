@@ -1,4 +1,4 @@
-class graylog::server(
+class graylog::server (
   $package_name = $graylog::params::package_name,
   $package_version = $graylog::params::package_version,
   Hash $config = undef,
@@ -27,7 +27,7 @@ class graylog::server(
     fail('Missing "root_password_sha2" config setting!')
   }
 
-  $data = merge($::graylog::params::default_config, $config)
+  $data = merge($graylog::params::default_config, $config)
 
   $notify = $restart_on_package_upgrade ? {
     true    => Service['graylog-server'],
@@ -58,11 +58,11 @@ class graylog::server(
         group   => $group,
         mode    => '0640',
         content => epp("${module_name}/server/environment.epp",
-                      {
-                        'java_initial_heap_size' => $java_initial_heap_size,
-                        'java_max_heap_size'     => $java_max_heap_size,
-                        'java_opts'              => $java_opts
-                      }),
+          {
+            'java_initial_heap_size' => $java_initial_heap_size,
+            'java_max_heap_size'     => $java_max_heap_size,
+            'java_opts'              => $java_opts
+        }),
       }
     }
     'redhat': {
@@ -72,11 +72,11 @@ class graylog::server(
         group   => $group,
         mode    => '0640',
         content => epp("${module_name}/server/environment.epp",
-                      {
-                        'java_initial_heap_size' => $java_initial_heap_size,
-                        'java_max_heap_size'     => $java_max_heap_size,
-                        'java_opts'              => $java_opts
-                      }),
+          {
+            'java_initial_heap_size' => $java_initial_heap_size,
+            'java_max_heap_size'     => $java_max_heap_size,
+            'java_opts'              => $java_opts
+        }),
       }
     }
     default: {

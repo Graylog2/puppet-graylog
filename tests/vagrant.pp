@@ -18,5 +18,5 @@ class { 'graylog::allinone':
     java_initial_heap_size => '2g',
     java_max_heap_size     => '2g',
     java_opts              => '-Dcom.sun.management.jmxremote',
-  }
+  },
 }
