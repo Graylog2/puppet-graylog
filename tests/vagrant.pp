@@ -5,7 +5,7 @@
 class { 'graylog::allinone':
   opensearch => {
     version  => '2.9.0',
-    settings =>  {
+    settings => {
       'action.auto_create_index'          => false,
       'plugins.security.ssl.http.enabled' => false,
       'plugins.security.disabled'         => true,
