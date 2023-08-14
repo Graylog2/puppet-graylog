@@ -127,7 +127,7 @@ class { '::graylog::repository':
 }->
 class { '::graylog::server':
   config  => {
-    is_master                                          => true,
+    is_leader                                          => true,
     node_id_file                                       => '/etc/graylog/server/node-id',
     password_secret                                    => 'password_secret',
     root_username                                      => 'admin',
@@ -238,7 +238,7 @@ Example:
 config => {
   'password_secret'    => '...',
   'root_password_sha2' => '...',
-  'is_master'          => true,
+  'is_leader'          => true,
   'output_batch_size'  => 2500,
 }
 ```
