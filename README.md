@@ -357,8 +357,8 @@ It uses the `graylog::allinone` class to setup a complete system inside
 the Vagrant box.
 
 ```
-$ vagrant up centos8
-$ vagrant provision centos8
+$ vagrant up rockylinux8
+$ vagrant provision rockylinux8
 ```
 
 This is a quick way to see how the module behaves on a real machine.
