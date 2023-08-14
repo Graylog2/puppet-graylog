@@ -361,10 +361,9 @@ files for further details.
 ### Release New Version
 
 1. Update and commit CHANGELOG
-1. Bump version via `bundle exec rake module:bump:minor` (or major/patch)
+1. Bump version via `bundle exec rake -f Rakefile.release module:bump:minor` (or major/patch)
 1. Commit `metadata.json`
-1. Test build with `bundle exec rake build`
-1. Tag release with `bundle exec rake module:tag`
-1. Push release to PuppetForge with `bundle exec rake module:push`
-1. Push commits to GitHub with `git push`
-1. Push tags to GitHub with `git push --tags`
+1. Test build with `bundle exec rake -f Rakefile.release module:build`
+1. Tag release with `bundle exec rake -f Rakefile.release module:tag`
+1. Push release to PuppetForge with `bundle exec -f Rakefile.release rake module:push`
+1. Push commits and tags to GitHub with `git push --follow-tags`
