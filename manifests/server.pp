@@ -1,6 +1,6 @@
 class graylog::server(
   $package_version = $graylog::params::package_version,
-  $config = undef,
+  Hash $config = undef,
   $user = $graylog::params::server_user,
   $group = $graylog::params::server_group,
   $ensure = running,
@@ -13,15 +13,12 @@ class graylog::server(
   if $config == undef {
     fail('Missing "config" setting!')
   }
-  if ! is_hash($config) {
-    fail('$config needs to be a hash data type!')
-  }
 
   # Check mandatory settings
-  if ! has_key($config, 'password_secret') {
+  unless 'password_secret' in $config {
     fail('Missing "password_secret" config setting!')
   }
-  if has_key($config, 'root_password_sha2') {
+  if 'root_password_sha2' in $config {
     if length($config['root_password_sha2']) < 64 {
       fail('The root_password_sha2 parameter does not look like a SHA256 checksum!')
     }

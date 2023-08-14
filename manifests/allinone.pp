@@ -12,7 +12,7 @@ class graylog::allinone(
   }
 
 
-  if has_key($elasticsearch, 'version') {
+  if 'version' in $elasticsearch {
     $es_version = $elasticsearch['version']
   } else {
     $es_version = '7.10.2'
@@ -34,7 +34,7 @@ class graylog::allinone(
   }
 
 
-  if has_key($graylog, 'major_version') {
+  if 'major_version' in $graylog {
     $graylog_major_version = $graylog['major_version']
   } else {
     $graylog_major_version = $graylog::params::major_version
