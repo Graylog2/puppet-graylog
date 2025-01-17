@@ -2,14 +2,12 @@
 
 require 'spec_helper'
 
-describe 'graylog' do
+describe 'graylog::params' do
   on_supported_os.each do |os, os_facts|
     context "on #{os}" do
       let(:facts) { os_facts }
 
-      it {
-        is_expected.to compile.and_raise_error(%r{use the \"graylog::server\" class})
-      }
+      it { is_expected.to compile.with_all_deps }
     end
   end
 end
