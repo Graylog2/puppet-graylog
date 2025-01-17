@@ -14,7 +14,7 @@
     },
     {
       "name": "puppetlabs/apt",
-      "version_requirement": ">= 2.2.2 < 9.1.0"
+      "version_requirement": ">= 2.2.2 < 11.0.0"
     }
   ],
   "operatingsystem_support": [
