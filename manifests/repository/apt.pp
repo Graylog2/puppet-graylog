@@ -1,8 +1,24 @@
+#
+# This class will add the official Graylog package repository, pgp key, and
+# optionally, a proxy configuration for the repository.
+#
+# @param url
+#   The URL for the repository
+#
+# @param release
+#   The release to use (e.g. stable)
+#
+# @param version
+#   The major release of Graylog to add the repo for
+#
+# @param proxy
+#   The proxy settings
+#
 class graylog::repository::apt (
-  $url,
-  $release,
-  $version,
-  $proxy,
+  String $url,
+  String $release,
+  String $version,
+  Optional[String] $proxy,
 ) {
   $apt_transport_package = 'apt-transport-https'
   $gpg_file = '/etc/apt/trusted.gpg.d/graylog-keyring.gpg'
@@ -11,8 +27,6 @@ class graylog::repository::apt (
     'graylog-downloads.herokuapp.com',
     'graylog2-package-repository.s3.amazonaws.com',
   ]
-
-  anchor { 'graylog::repository::apt::begin': }
 
   if !defined(Package[$apt_transport_package]) {
     ensure_packages([$apt_transport_package])
@@ -82,11 +96,4 @@ class graylog::repository::apt (
       before            => Apt::Source['graylog'],
     }
   }
-
-  anchor { 'graylog::repository::apt::end': }
-
-  Anchor['graylog::repository::apt::begin']
-  -> Exec['apt_update']
-  -> Anchor['graylog::repository::apt::end']
-  -> Anchor['graylog::repository::end']
 }

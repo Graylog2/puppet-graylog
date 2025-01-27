@@ -1,6 +1,31 @@
+#
+# This class is intended to be used to create a server with opensearch,
+# mongodb, and graylog installed and configured.
+#
+# @param opensearch
+#   A hash containing the opensearch configuration options.
+#   An example would look (at a minimum) like
+#   {
+#     'version'  => '2.15.0',
+#     'settings' => {
+#       'setting_a' => 'value'
+#     }
+#   }
+#
+# @param graylog
+#   A hash containing the graylog configuration options
+#   An example would look like
+#   {
+#     'major_version' => '6.1',
+#     'config'        => {
+#       'password_secret'    => 'something',
+#       'root_password_sha2' => 'abcd...'
+#     }
+#   }
+#
 class graylog::allinone (
-  $opensearch,
-  $graylog,
+  Hash $opensearch,
+  Hash $graylog,
 ) inherits graylog::params {
   class { 'mongodb::globals':
     manage_package_repo => true,
