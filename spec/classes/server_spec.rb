@@ -6,6 +6,9 @@ describe 'graylog::server' do
   on_supported_os.each do |os, os_facts|
     context "on #{os}" do
       let(:facts) { os_facts }
+      let(:pre_condition) do
+        'class { graylog::repository: }'
+      end
       let(:params) do
         {
           'config' => {
@@ -32,8 +35,8 @@ describe 'graylog::server' do
           .with_owner('graylog')
           .with_group('graylog')
           .with_mode('0640')
-          .with_content(%r{password_secret = super secret secret})
-          .with_content(%r{root_password_sha2\s\=\s[a-f0-9]{64}})
+          .with_content(sensitive(%r{password_secret = super secret secret}))
+          .with_content(sensitive(%r{root_password_sha2\s\=\s[a-f0-9]{64}}))
       }
 
       # Ensure that the java params are being managed and contain expected
