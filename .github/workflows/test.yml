@@ -14,3 +14,24 @@ jobs:
     steps:
       - name: "Checkout the source code"
         uses: "actions/checkout@v4"
+
+      - name: "Install PDK"
+        run: |
+          wget https://apt.puppet.com/puppet-tools-release-jammy.deb
+          sudo dpkg -i puppet-tools-release-jammy.deb
+          sudo apt-get update
+          sudo apt-get install -y pdk
+
+      - name: "Install dependencies"
+        run: |
+          pdk bundle install
+
+      - name: "Provision nodes"
+        run: |
+          pdk bundle exec rake "litmus:provision_list[default]"
+          pdk bundle exec rake "litmus:install_agent"
+          pdk bundle exec rake "litmus:install_module"
+
+      - name: "Run Tests"
+        run: |
+          pdk bundle exec rake "litmus:acceptance:parallel"
