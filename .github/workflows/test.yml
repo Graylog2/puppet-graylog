@@ -18,9 +18,9 @@ jobs:
       - name: "Install PDK"
         run: |
           wget https://apt.puppet.com/puppet-tools-release-jammy.deb
-          dpkg -i puppet-tools-release-jammy.deb
-          apt-get update
-          apt-get install -y pdk
+          sudo dpkg -i puppet-tools-release-jammy.deb
+          sudo apt-get update
+          sudo apt-get install -y pdk
 
       - name: "Provision nodes"
         run: |
