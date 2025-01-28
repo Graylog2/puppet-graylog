@@ -1,0 +1,16 @@
+name: "Test"
+
+on:
+  pull_request:
+
+defaults:
+  run:
+    shell: "bash"
+
+jobs:
+  test:
+    name: "Test"
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: "Checkout the source code"
+        uses: "actions/checkout@v4"
