@@ -22,6 +22,10 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y pdk
 
+      - name: "Install dependencies"
+        run: |
+          pdk bundle install
+
       - name: "Provision nodes"
         run: |
           pdk bundle exec rake "litmus:provision_list[default]"
