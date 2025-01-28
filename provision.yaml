@@ -1,0 +1,28 @@
+---
+default:
+  provisioner: docker
+  images:
+    - litmusimage/ubuntu:22.04
+    - litmusimage/debian:11
+    - litmusimage/debian:12
+    - litmusimage/rockylinux:8
+    - litmusimage/rockylinux:9
+    - litmusimage/almalinux:8
+    - litmusimage/almalinux:9
+debian:
+  provisioner: docker
+  images:
+    - litmusimage/ubuntu:22.04
+    - litmusimage/debian:11
+    - litmusimage/debian:12
+redhat:
+  provisioner: docker
+  images:
+    - litmusimage/rockylinux:8
+    - litmusimage/rockylinux:9
+    - litmusimage/almalinux:8
+    - litmusimage/almalinux:9
+single:
+  provisioner: docker
+  images:
+    - litmusimage/ubuntu:22.04
