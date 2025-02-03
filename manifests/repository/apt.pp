@@ -29,7 +29,7 @@ class graylog::repository::apt (
   ]
 
   if !defined(Package[$apt_transport_package]) {
-    ensure_packages([$apt_transport_package])
+    stdlib::ensure_packages([$apt_transport_package])
   }
 
   file { $gpg_file:

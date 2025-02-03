@@ -75,7 +75,7 @@ class graylog::server (
     fail('Missing "root_password_sha2" config setting!')
   }
 
-  $data = merge($graylog::params::default_config, $config)
+  $data = stdlib::merge($graylog::params::default_config, $config)
 
   $notify = $restart_on_package_upgrade ? {
     true    => Service['graylog-server'],
@@ -94,6 +94,7 @@ class graylog::server (
     group   => $group,
     mode    => '0640',
     content => Sensitive(template("${module_name}/server/graylog.conf.erb")),
+    require => Package[$package_name],
   }
 
   case $facts['os']['family'] {

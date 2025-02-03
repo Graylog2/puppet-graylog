@@ -37,6 +37,11 @@ describe 'graylog::server' do
           .with_mode('0640')
           .with_content(sensitive(%r{password_secret = super secret secret}))
           .with_content(sensitive(%r{root_password_sha2\s\=\s[a-f0-9]{64}}))
+          .that_requires(
+            [
+              'Package[graylog-server]',
+            ],
+          )
       }
 
       # Ensure that the java params are being managed and contain expected
