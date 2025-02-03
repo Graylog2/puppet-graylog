@@ -1,6 +1,15 @@
+#
+# This class will add the official Graylog package repository and the pgp key
+#
+# @param url
+#   The URL for the repository
+#
+# @param proxy
+#   Proxy settings string
+#
 class graylog::repository::yum (
-  $url,
-  $proxy,
+  String $url,
+  Optional[String] $proxy,
 ) {
   $gpg_file = '/etc/pki/rpm-gpg/RPM-GPG-KEY-graylog'
 

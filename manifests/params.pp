@@ -1,3 +1,7 @@
+#
+# This class defines some sensible defaults for various values throughout this
+# module and allows users to easily override default values.
+#
 class graylog::params {
   $major_version = '6.1'
   $package_name = 'graylog-server'

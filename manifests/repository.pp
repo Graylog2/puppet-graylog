@@ -1,17 +1,32 @@
+#
+# This class adds and manages the Graylog repository for Debian- and 
+# RedHat-based Linux distributions
+#
+# @param version
+#   The major version of the Graylog repository to add (e.g. 6.1)
+#
+# @param release
+#   For Debian-based distributions, the release to use (e.g. stable)
+#
+# @param url
+#   The URL to use for the repository, required if not debian or redhat-based
+#   distribution
+#
+# @param proxy
+#   Proxy settings for the specific package manager
+#
 class graylog::repository (
-  $version = $graylog::params::major_version,
-  $url     = undef,
-  $proxy = undef,
-  $release = $graylog::params::repository_release,
+  String $version         = $graylog::params::major_version,
+  String $release         = $graylog::params::repository_release,
+  Optional[String] $url   = undef,
+  Optional[String] $proxy = undef,
 ) inherits graylog::params {
-  anchor { 'graylog::repository::begin': }
-
   if $url == undef {
     $graylog_repo_url = $facts['os']['family'] ? {
       'debian' => 'https://downloads.graylog.org/repo/debian/',
       'redhat' => "https://downloads.graylog.org/repo/el/${release}/${version}/\$basearch/",
       default  => fail("${facts['os']['family']} is not supported!"),
-      }
+    }
   } else {
     $graylog_repo_url = $url
   }
@@ -35,5 +50,4 @@ class graylog::repository (
       fail("${facts['os']['family']} is not supported!")
     }
   }
-  anchor { 'graylog::repository::end': }
 }
