@@ -153,7 +153,6 @@ class { '::graylog::server':
 
 * `graylog::repository`: Manages the official Graylog package repository
 * `graylog::server`: Installs, configures and manages the Graylog server service
-* `graylog::allinone`: Creates a full Graylog setup including MongoDB and OpenSearch
 
 #### Private Classes
 
@@ -282,55 +281,6 @@ Additional java options for Graylog. Defaults to ``.
 This setting restarts the `graylog-server` service if the os package is upgraded.
 It defaults to `false`.
 
-#### Class: graylog::allinone
-
-The `graylog::allinone` class configures a complete Graylog system including
-MongoDB and OpenSearch
-
-**Note:** This is nice to quickly setup a running system on a single node but
-should only be used for testing or really small setups.
-Use the `graylog::server` class for production deployments.
-
-This class is using two Puppet modules from the forge to setup a complete system.
-Please make sure you have these installed before using the `graylog::allinone` class.
-
-Requirements:
-
-* [puppet/mongodb](https://forge.puppet.com/puppet/mongodb)
-* [puppet/opensearch](https://forge.puppet.com/modules/puppet/opensearch)
-
-##### `opensearch`
-
-This setting is used to configure the `opensearch` Puppet module.
-
-There is only on possible hash key:
-
-* `version`: The OpenSearch version to use
-
-Example:
-
-```
-opensearch => {
-  version => '2.9.0',
-}
-```
-
-##### `graylog`
-
-This setting is used to configure the `graylog::repository` and `graylog::server`
-classes.
-
-Example:
-
-```
-graylog => {
-  major_version => '6.1',
-  config        => {
-    # ... see graylog::server description for details
-  },
-}
-```
-
 ## Limitations
 
 Supported Graylog versions:
@@ -343,17 +293,21 @@ Supported platforms:
 * RedHat/CentOS
 
 ## Development
+You can test this module by using the associated PDK commands.
 
-You can test this module by using [Vagrant](https://www.vagrantup.com/).
-It uses the `graylog::allinone` class to setup a complete system inside
-the Vagrant box.
+```bash
+pdk validate # Ensure code style conforms to recommendations
+pdk test unit --parallel # Run unit tests (in parallel)
 
+#
+# Acceptance (litmus) tests, requires docker
+#
+pdk bundle exec rake 'litmus:provision_list[default]'
+pdk bundle exec rake 'litmus:install_agent'
+pdk bundle exec rake 'litmus:install_module'
+pdk bundle exec rake 'litmus:acceptance:parallel'
+pdk bundle exec rake 'litmus:tear_down'
 ```
-$ vagrant up rockylinux8
-$ vagrant provision rockylinux8
-```
-
-This is a quick way to see how the module behaves on a real machine.
 
 Please see the [CONTRIBUTING.md](CONTRIBUTING.md) and [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)
 files for further details.
