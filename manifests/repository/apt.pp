@@ -5,7 +5,7 @@ class graylog::repository::apt (
   $proxy,
 ) {
   $apt_transport_package = 'apt-transport-https'
-  $gpg_file = '/etc/apt/trusted.gpg.d/graylog-keyring.gpg'
+  $keyring_name = 'graylog-keyring.gpg'
   $package_sources = [
     'downloads.graylog.org',
     'graylog-downloads.herokuapp.com',
@@ -18,13 +18,14 @@ class graylog::repository::apt (
     ensure_packages([$apt_transport_package])
   }
 
-  file { $gpg_file:
-    ensure => file,
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0444',
-    source => 'puppet:///modules/graylog/graylog-keyring.gpg',
+  # Remove the legacy globally-trusted key
+  file { '/etc/apt/trusted.gpg.d/graylog-keyring.gpg':
+    ensure => absent,
     notify => Exec['apt_update'],
+  }
+
+  apt::keyring { $keyring_name:
+    source => "puppet:///modules/graylog/${keyring_name}",
   }
 
   apt::source { 'graylog':
@@ -36,8 +37,9 @@ class graylog::repository::apt (
       'deb' => true,
       'src' => false,
     },
+    keyring  => "/etc/apt/keyrings/${keyring_name}",
     require  => [
-      File[$gpg_file],
+      Apt::Keyring[$keyring_name],
       Package[$apt_transport_package],
     ],
     notify   => Exec['apt_update'],
