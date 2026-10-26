@@ -19,12 +19,11 @@ describe 'graylog::repository' do
         }
         it {
           is_expected.to contain_file('/etc/apt/trusted.gpg.d/graylog-keyring.gpg')
-            .with_ensure('file')
-            .with_owner('root')
-            .with_group('root')
-            .with_mode('0444')
+            .with_ensure('absent')
+        }
+        it {
+          is_expected.to contain_apt__keyring('graylog-keyring.gpg')
             .with_source('puppet:///modules/graylog/graylog-keyring.gpg')
-            .that_notifies('Exec[apt_update]')
         }
         it {
           is_expected.to contain_apt__source('graylog')
@@ -34,9 +33,10 @@ describe 'graylog::repository' do
             .with_release('stable')
             .with_repos('6.1')
             .with_include({ 'deb' => true, 'src' => false })
+            .with_keyring('/etc/apt/keyrings/graylog-keyring.gpg')
             .that_requires(
               [
-                'File[/etc/apt/trusted.gpg.d/graylog-keyring.gpg]',
+                'Apt::Keyring[graylog-keyring.gpg]',
                 'Package[apt-transport-https]',
               ],
             )
